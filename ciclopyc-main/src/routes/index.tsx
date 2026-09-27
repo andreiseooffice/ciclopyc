@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type CSSProperties, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
 import { AnimatePresence, motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight, Check, ChevronRight, Instagram, Mail, Menu, ShoppingBag, Star, X } from "lucide-react";
 import { siClaude, siFigma, siFramer, siGoogle, siWebflow } from "simple-icons";
@@ -48,12 +48,12 @@ const templates = [
   { name: "Imobiliare Premium", price: "1000+€", type: "ESTATE", image: estateImage, features: ["Filtrare proprietăți", "Tururi video", "Formular lead-uri"] },
 ];
 const testimonials = [
-  { quote: "CICLOPYC a transformat complet felul în care suntem percepuți. Conversiile au crescut din prima lună.", name: "Mara Ionescu", role: "Founder, Aster Studio", avatar: maraAvatar },
-  { quote: "Un proces clar, rapid și fără jargon. Rezultatul pare cu doi ani înaintea industriei noastre.", name: "Victor Damian", role: "CEO, Volt Capital", avatar: victorAvatar },
+  { quote: "CICLOPYC a transformat complet felul în care suntem percepuți. Conversiile au crescut din prima lună.", name: "Elena Mitu", role: "Founder Nail Noir", avatar: maraAvatar },
+  { quote: "Un proces clar, rapid și fără jargon. Rezultatul pare cu doi ani înaintea industriei noastre.", name: "Viorel Pavăl", role: "Owner Frizeria VIO", avatar: victorAvatar },
   { quote: "Viteza site-ului este incredibilă, iar echipa noastră îl poate administra fără dificultăți.", name: "Daria Pop", role: "Marketing Lead, NEXUS", avatar: dariaAvatar },
 ];
 const faqs = [
-  ["Cât durează livrarea unui site?", "Un proiect complet durează, în medie, între 3 și 6 săptămâni. Primești un calendar clar înainte de start și actualizări la fiecare etapă."],
+  ["Cât durează livrarea unui site?", "Un proiect complet durează, în medie, între 10 și 14 zile lucrătoare. Primești un calendar clar înainte de start și actualizări la fiecare etapă."],
   ["Ce tehnologii folosiți?", "Construim cu React, Next.js sau TanStack Start și Tailwind CSS. Alegem arhitectura potrivită obiectivelor, nu tehnologia cea mai la modă."],
   ["Oferiți mentenanță după lansare?", "Da. Pachetele de mentenanță includ actualizări, monitorizare, îmbunătățiri de performanță și suport prioritar."],
   ["Pot porni de la un model și să îl personalizez?", "Absolut. Modelele sunt o bază eficientă, iar culorile, conținutul, funcțiile și structura pot fi adaptate brandului tău."],
@@ -76,16 +76,16 @@ function scrollTo(id: string) { document.getElementById(id)?.scrollIntoView({ be
 function Counter({ value, suffix = "", label, compact = false }: { value: number; suffix?: string; label: string; compact?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const valueRef = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
+  const inView = useInView(ref, { amount: 0.5 });
   const count = useMotionValue(0);
-  const spring = useSpring(count, { duration: 1600, bounce: 0 });
-  const replay = () => {
+  const spring = useSpring(count, { duration: 2200, bounce: 0 });
+  const replay = useCallback(() => {
     spring.jump(0);
     count.set(0);
     if (valueRef.current) valueRef.current.textContent = `0${suffix}`;
     requestAnimationFrame(() => count.set(value));
-  };
-  useEffect(() => { if (inView) count.set(value); }, [count, inView, value]);
+  }, [count, spring, suffix, value]);
+  useEffect(() => { if (inView) replay(); }, [inView, replay]);
   useEffect(() => spring.on("change", (latest) => { if (valueRef.current) valueRef.current.textContent = `${Math.round(latest)}${suffix}`; }), [spring, suffix]);
   return (
     <div
@@ -310,7 +310,7 @@ function Index() {
               <label className="field-label">Nume<input required name="name" maxLength={100} placeholder="Numele tău" className="field" /></label>
               <label className="field-label">Email<input required name="email" type="email" maxLength={255} placeholder="email@companie.ro" className="field" /></label>
               <label className="field-label sm:col-span-2">URL site actual <span className="text-[10px] font-medium normal-case text-muted-foreground">(opțional)</span><input name="url" type="url" maxLength={255} placeholder="https:// — dacă ai deja un site" className="field" /></label>
-              <label className="field-label sm:col-span-2">Buget estimat<select required name="budget" defaultValue="" className="field"><option value="" disabled>Alege un interval</option><option>Sub 1.000€</option><option>1.000€ — 3.000€</option><option>3.000€ — 7.000€</option><option>Peste 7.000€</option></select></label>
+              <label className="field-label sm:col-span-2">Buget estimat<select required name="budget" defaultValue="" className="field"><option value="" disabled>Alege un interval</option><option>300€</option><option>500€</option><option>700€ — 1.000€</option><option>Peste 1.000€+</option></select></label>
               <Button type="submit" className="mt-2 h-12 rounded-xl bg-primary font-bold shadow-neon hover:bg-primary/90 sm:col-span-2">Cere audit <ArrowUpRight /></Button>
             </form>
           </div>

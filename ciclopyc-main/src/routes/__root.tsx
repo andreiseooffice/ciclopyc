@@ -77,7 +77,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+      },
       { name: "author", content: "CICLOPYC" },
       { property: "og:site_name", content: "CICLOPYC" },
       { property: "og:type", content: "website" },
@@ -116,6 +119,27 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    const preventWheelZoom = (event: WheelEvent) => {
+      if (event.ctrlKey || event.metaKey) {
+        event.preventDefault();
+      }
+    };
+    const preventKeyboardZoom = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && ["+", "=", "-", "_", "0"].includes(event.key)) {
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener("wheel", preventWheelZoom, { passive: false });
+    document.addEventListener("keydown", preventKeyboardZoom);
+
+    return () => {
+      document.removeEventListener("wheel", preventWheelZoom);
+      document.removeEventListener("keydown", preventKeyboardZoom);
+    };
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
