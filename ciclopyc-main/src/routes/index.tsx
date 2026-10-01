@@ -1,22 +1,20 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
-import { AnimatePresence, motion, useInView, useMotionValue, useSpring } from "framer-motion";
-import { ArrowUpRight, Check, ChevronRight, Instagram, Mail, Menu, ShoppingBag, Star, X } from "lucide-react";
-import { siClaude, siFigma, siFramer, siGoogle, siWebflow } from "simple-icons";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
+import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight, Check, ChevronRight, Mail, Menu, MessageCircle, Phone, Star, X } from "lucide-react";
+import { siFigma, siFramer, siGoogle, siWebflow, siWhatsapp } from "simple-icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { SiteFooter } from "@/components/site-footer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import commerceImage from "@/assets/portfolio-commerce.jpg";
 import fintechImage from "@/assets/portfolio-fintech.jpg";
 import saasImage from "@/assets/portfolio-saas.jpg";
-import beautyImage from "@/assets/template-beauty.jpg";
-import cafeImage from "@/assets/template-cafe.jpg";
-import estateImage from "@/assets/template-estate.jpg";
 import maraAvatar from "@/assets/avatar-mara.jpg";
 import victorAvatar from "@/assets/avatar-victor.jpg";
 import dariaAvatar from "@/assets/avatar-daria.jpg";
-import heroBg from "@/assets/hero-bg.jpg";
+import { serviceModels } from "@/lib/service-models";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,18 +32,12 @@ export const Route = createFileRoute("/")({
 });
 
 const EMAIL = "office.andrei.seo@gmail.com";
+const CONTACT_PHONE = "+40752927479";
 const nav: Array<[string, string]> = [["Acasă", "home"], ["Portofoliu", "portofoliu"], ["Blog", "blog"], ["Statistici", "stats"], ["Recenzii", "reviews"], ["Modele", "shop"], ["FAQ", "faq"], ["Contact", "contact"]];
-const TikTokIcon = ({ className = "size-4" }: { className?: string }) => <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true"><path d="M19.6 6.7a5 5 0 0 1-3.6-4.4V2h-3.3v13.2a2.9 2.9 0 1 1-2-2.7V9.1a6.2 6.2 0 1 0 5.3 6.1V8.9a8.2 8.2 0 0 0 4.6 1.4V7a5 5 0 0 1-1-.3Z" /></svg>;
-const socials: Array<[string, string, "instagram" | "tiktok" | "mail"]> = [["Instagram", "https://www.instagram.com/ciclopyc/", "instagram"], ["TikTok", "https://www.tiktok.com/@ciclopyc", "tiktok"], ["Email", `mailto:${EMAIL}`, "mail"]];
 const projects = [
-  { category: "HORECA", title: "EDEN / Restaurant", copy: "Imaginea online a restaurantului EDEN: meniu digital, rezervări, galerie foto și alte caracteristici orientate către conversii și promovare.", image: commerceImage, number: "01" },
-  { category: "BEAUTY SALON", title: "NOIR NAIL / Salon", copy: "O platformă cu automatizare integrată, care transformă programările într-un lucru simplu pentru clienți. Intri, selectezi serviciul, te programezi și gata.", image: fintechImage, number: "02" },
-  { category: "REGIM HOTELIER", title: "ALVERA / Hotel", copy: "Pagina de prezentare de care are nevoie orice hotel sau pensiune. Rezervări, detalii cazare, conversie clienți, toate într-un singur loc.", image: saasImage, number: "03" },
-];
-const templates = [
-  { name: "WEBSITE", type: "OUTREACH", image: beautyImage, features: ["Site prezentare", "Securitate & HTTPS", "Suport post-lansare"] },
-  { name: "MAGAZIN ONLINE", type: "MARKET", image: cafeImage, features: ["Stock management", "Galerie produse", "Plăți integrate"] },
-  { name: "IMPLEMENTARE AI", type: "TECH", image: estateImage, features: ["Integrare Chat-bot", "Soluții AI", "Automatizări"] },
+  { category: "HORECA", title: "EDEN / Restaurant", copy: "Imaginea online a restaurantului EDEN: meniu digital, rezervări, galerie foto și alte caracteristici orientate către conversii și promovare.", image: commerceImage, number: "01", loadSeconds: 0.8, durationDays: 10, priceEuros: 480 },
+  { category: "BEAUTY SALON", title: "NOIR NAIL / Salon", copy: "O platformă cu automatizare integrată, care transformă programările într-un lucru simplu pentru clienți. Intri, selectezi serviciul, te programezi și gata.", image: fintechImage, number: "02", loadSeconds: 0.7, durationDays: 14, priceEuros: 650 },
+  { category: "REGIM HOTELIER", title: "ALVERA / Hotel", copy: "Pagina de prezentare de care are nevoie orice hotel sau pensiune. Rezervări, detalii cazare, conversie clienți, toate într-un singur loc.", image: saasImage, number: "03", loadSeconds: 0.9, durationDays: 18, priceEuros: 820 },
 ];
 const testimonials = [
   { quote: "CICLOPYC a transformat complet felul în care suntem percepuți. Conversiile au crescut din prima lună.", name: "Elena Mitu", role: "Founder Nail Noir", avatar: maraAvatar },
@@ -59,111 +51,87 @@ const faqs = [
   ["Pot porni de la un model și să îl personalizez?", "Absolut. Modelele sunt o bază eficientă, iar culorile, conținutul, funcțiile și structura pot fi adaptate brandului tău."],
 ];
 const toolBrands = [
-  { mark: "F", name: "FIGMA", font: "figma", icon: siFigma },
-  { mark: "</>", name: "VS CODE", font: "vscode" },
-  { mark: "W", name: "WEBFLOW", font: "webflow", icon: siWebflow },
-  { mark: "C", name: "CLAUDE", font: "claude", icon: siClaude },
-  { mark: "G", name: "GOOGLE STUDIO", font: "google", icon: siGoogle },
-  { mark: "CX", name: "CODEX", font: "codex" },
-  { mark: "M", name: "MOTION", font: "motion" },
-  { mark: "Fr", name: "FRAMER", font: "framer", icon: siFramer },
-  { mark: "O", name: "OPEN AI", font: "openai" },
+  { mark: "F", name: "FIGMA", font: "figma", color: "#f24e1e", icon: siFigma },
+  { mark: "</>", name: "VS CODE", font: "vscode", color: "#007acc" },
+  { mark: "W", name: "WEBFLOW", font: "webflow", color: "#146ef5", icon: siWebflow },
+  { mark: "G", name: "GOOGLE STUDIO", font: "google", color: "#4285f4", icon: siGoogle },
+  { mark: "M", name: "MOTION", font: "motion", color: "#d94b78" },
+  { mark: "Fr", name: "FRAMER", font: "framer", color: "#0055ff", icon: siFramer },
 ];
 const heroPhrases = ["transformă vizitatorii în clienți.", "îți construiesc imaginea online.", "lucrează în locul tău."];
 
 function scrollTo(id: string) { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); }
 
-function Counter({ value, suffix = "", label, compact = false }: { value: number; suffix?: string; label: string; compact?: boolean }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const valueRef = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { amount: 0.5 });
-  const count = useMotionValue(0);
-  const spring = useSpring(count, { duration: 2200, bounce: 0 });
+function Counter({ value, suffix = "", label, compact = false, dialog = false, decimals = 0 }: { value: number; suffix?: string; label: string; compact?: boolean; dialog?: boolean; decimals?: number }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const [displayValue, setDisplayValue] = useState(0);
+  const timerRef = useRef<number | null>(null);
+  const format = (current: number) => `${decimals ? current.toFixed(decimals) : Math.round(current)}${suffix}`;
+
   const replay = useCallback(() => {
-    spring.jump(0);
-    count.set(0);
-    if (valueRef.current) valueRef.current.textContent = `0${suffix}`;
-    requestAnimationFrame(() => count.set(value));
-  }, [count, spring, suffix, value]);
-  useEffect(() => { if (inView) replay(); }, [inView, replay]);
-  useEffect(() => spring.on("change", (latest) => { if (valueRef.current) valueRef.current.textContent = `${Math.round(latest)}${suffix}`; }), [spring, suffix]);
-  return (
-    <div
-      ref={ref}
-      role="button"
-      tabIndex={0}
-      aria-label={`Reia numărătoarea pentru ${label}`}
-      onClick={replay}
-      onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); replay(); } }}
-      className={compact ? "tactile-card stat-slot rounded-2xl border border-border bg-card/70 p-4 text-center backdrop-blur-xl" : "tactile-card stat-slot bg-background p-7 text-center md:p-10"}
-    >
-      <p className={`stat-value font-display font-black ${compact ? "text-xl md:text-2xl" : "text-4xl md:text-6xl"}`}><span ref={valueRef}>0{suffix}</span></p>
-      <p className={compact ? "mt-1 text-[10px] font-bold uppercase tracking-[.12em] text-muted-foreground" : "mt-3 text-xs uppercase text-muted-foreground"}>{label}</p>
-    </div>
-  );
-}
+    if (timerRef.current !== null) window.clearInterval(timerRef.current);
+    setDisplayValue(0);
+    if (prefersReducedMotion) {
+      setDisplayValue(value);
+      return;
+    }
+    const startedAt = performance.now();
+    timerRef.current = window.setInterval(() => {
+      const progress = Math.min((performance.now() - startedAt) / 1800, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      setDisplayValue(value * easedProgress);
+      if (progress >= 1 && timerRef.current !== null) {
+        window.clearInterval(timerRef.current);
+        timerRef.current = null;
+        setDisplayValue(value);
+      }
+    }, 40);
+  }, [prefersReducedMotion, value]);
 
-function MenuButton({ open, onToggle }: { open: boolean; onToggle: () => void }) {
-  const targetX = useMotionValue(0);
-  const targetY = useMotionValue(0);
-  const rotateX = useSpring(targetX, { stiffness: 360, damping: 24, mass: 0.55 });
-  const rotateY = useSpring(targetY, { stiffness: 360, damping: 24, mass: 0.55 });
-
-  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    targetX.set(y * -7);
-    targetY.set(x * 9);
-  };
-
-  const resetTilt = () => {
-    targetX.set(0);
-    targetY.set(0);
-  };
+  useEffect(() => () => {
+    if (timerRef.current !== null) window.clearInterval(timerRef.current);
+  }, []);
 
   return (
     <motion.div
-      className="menu-button-shell"
-      initial={{ opacity: 0, y: -18, rotateX: -24 }}
-      animate={{ opacity: 1, y: 0, rotateX: 0 }}
-      transition={{ type: "spring", stiffness: 240, damping: 18 }}
-      style={{ rotateX, rotateY }}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={resetTilt}
+      ref={containerRef}
+      role="button"
+      tabIndex={0}
+      aria-label={`${label}: ${format(value)}. Reia numărătoarea.`}
+      onClick={replay}
+      onViewportEnter={replay}
+      onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); replay(); } }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 30, scale: .9, rotateX: 8 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+      whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.035 }}
+      viewport={{ once: false, amount: .45, margin: "-30px" }}
+      transition={{ duration: .85, ease: "easeOut" }}
+      style={{ transformPerspective: 900 }}
+      className={dialog ? "tactile-card stat-card project-metric rounded-xl border border-border bg-card p-4 text-center" : compact ? "tactile-card stat-card rounded-xl border border-border bg-white/90 p-4 text-center" : "tactile-card stat-card bg-background p-7 text-center md:p-10"}
     >
-      <Button onClick={onToggle} aria-expanded={open} aria-label={open ? "Închide meniul" : "Deschide meniul"} className="menu-trigger h-14 rounded-2xl border border-primary/40 bg-card px-5 font-display font-bold text-foreground hover:bg-accent">
-        <span className="menu-trigger-icon grid size-7 place-items-center rounded-lg bg-primary text-primary-foreground">{open ? <X /> : <Menu />}</span>
-        <span className="hidden sm:inline">{open ? "ÎNCHIDE" : "MENIU"}</span>
-      </Button>
+      <p className={`stat-value font-display font-black ${dialog ? "text-xl" : compact ? "text-xl md:text-2xl" : "text-4xl md:text-6xl"}`}>{format(displayValue)}</p>
+      <p className={dialog || compact ? "mt-1 text-[10px] font-bold uppercase tracking-[.12em] text-muted-foreground" : "mt-3 text-xs uppercase text-muted-foreground"}>{label}</p>
     </motion.div>
   );
 }
 
-const binaryRain = [
-  "01001101011001010110111001110101",
-  "10110100100101101101001011010011",
-  "00110110111001001011010100101101",
-  "11001010010110100110110010100110",
-  "01101001011011001010010110100101",
-  "10010110100101101001011011010010",
-  "01011010011001011010010110100110",
-  "10100110100101101001011001011010",
-  "00101101001011010010110100101101",
-  "11010010110100101101001011010010",
-];
-
-function BinaryRain() {
-  return <div className="binary-rain" aria-hidden="true">{binaryRain.map((line, index) => <span key={index} className="binary-column" style={{ "--rain-index": index } as CSSProperties}>{line.split("").map((bit, bitIndex) => <b key={bitIndex}>{bit}</b>)}</span>)}</div>;
+function MenuButton({ open, onToggle }: { open: boolean; onToggle: () => void }) {
+  return <Button onClick={onToggle} aria-expanded={open} aria-label={open ? "Închide meniul" : "Deschide meniul"} className="menu-trigger h-12 rounded-xl border border-border bg-card px-4 font-display font-bold text-foreground hover:bg-accent">
+    <span className="menu-trigger-icon grid size-7 place-items-center rounded-lg bg-primary text-primary-foreground">{open ? <X /> : <Menu />}</span>
+    <span className="hidden sm:inline">{open ? "ÎNCHIDE" : "MENIU"}</span>
+  </Button>;
 }
-
 
 function Index() {
   const navigate = useNavigate();
+  const reducedMotion = useReducedMotion();
+  const [introVisible, setIntroVisible] = useState(true);
+  const [revealStage, setRevealStage] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [project, setProject] = useState<(typeof projects)[number] | null>(null);
-  const [template, setTemplate] = useState<(typeof templates)[number] | null>(null);
   const [heroPhraseIndex, setHeroPhraseIndex] = useState(0);
+  const [contactOpen, setContactOpen] = useState(false);
 
   useEffect(() => {
     const phraseTimer = window.setInterval(() => {
@@ -171,6 +139,22 @@ function Index() {
     }, 3600);
     return () => window.clearInterval(phraseTimer);
   }, []);
+
+  useEffect(() => {
+    if (reducedMotion === null) return;
+    if (reducedMotion) {
+      setIntroVisible(false);
+      setRevealStage(3);
+      return;
+    }
+    const timers = [
+      window.setTimeout(() => setIntroVisible(false), 450),
+      window.setTimeout(() => setRevealStage(1), 850),
+      window.setTimeout(() => setRevealStage(2), 1550),
+      window.setTimeout(() => setRevealStage(3), 2250),
+    ];
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [reducedMotion]);
 
   const submitAudit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -185,34 +169,29 @@ function Index() {
     toast.success("Cererea este pregătită.", { description: `Se deschide aplicația ta de e-mail către ${EMAIL}.` });
   };
 
-  const submitOrder = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") ?? "").slice(0, 100);
-    const email = String(data.get("email") ?? "").slice(0, 255);
-    const body = `Nume: ${name}\nEmail: ${email}\nModel dorit: ${template?.name ?? ""}`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Comandă model — " + (template?.name ?? ""))}&body=${encodeURIComponent(body)}`;
-    setTemplate(null);
-    toast.success("Comanda este pregătită.", { description: `Se deschide aplicația ta de e-mail către ${EMAIL}.` });
-  };
-
   return (
+    <LayoutGroup id="ciclopyc-intro">
+      <AnimatePresence initial={false}>
+        {introVisible && <motion.div key="intro-splash" initial={{ opacity: 1 }} exit={{ opacity: 0, transition: { delay: .62, duration: .32 } }} className="fixed inset-0 z-[100] grid place-items-center bg-background" aria-hidden="true">
+          <motion.h1 layoutId="ciclopyc-wordmark" transition={{ type: "spring", stiffness: 115, damping: 24, mass: 1 }} className="font-display text-5xl font-black text-foreground md:text-7xl">CICLOPYC</motion.h1>
+        </motion.div>}
+      </AnimatePresence>
     <main id="home" className="min-h-screen overflow-hidden bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-      <div className="fixed right-5 top-5 z-[60] md:right-8 md:top-8">
-        <div className="hidden items-center gap-1 rounded-2xl border border-border bg-card/75 p-1.5 shadow-[0_12px_32px_oklch(0_0_0_/_0.38)] backdrop-blur-xl md:flex">
+      <motion.div initial={false} animate={revealStage >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: -14 }} transition={{ duration: .7, ease: "easeOut" }} style={{ pointerEvents: revealStage >= 1 ? "auto" : "none" }} className="fixed right-5 top-5 z-[60] md:right-8 md:top-8">
+        <div className="hidden items-center gap-1 rounded-xl border border-border bg-card p-1.5 shadow-sm md:flex">
           {["Portofoliu", "Blog", "Modele", "Contact"].map((label) => {
             const id = label === "Portofoliu" ? "portofoliu" : label === "Blog" ? "blog" : label === "Modele" ? "shop" : "footer";
             return <motion.button key={label} whileHover={{ y: -2 }} whileTap={{ scale: .96 }} onClick={() => { if (id === "portofoliu") navigate({ to: "/portofoliu" }); else if (id === "blog") navigate({ to: "/blog" }); else scrollTo(id); }} className="rounded-xl px-4 py-2.5 text-xs font-bold text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">{label}</motion.button>;
           })}
-          <motion.button whileHover={{ y: -2 }} whileTap={{ scale: .96 }} onClick={() => scrollTo("contact")} className="rounded-xl bg-primary px-4 py-2.5 text-xs font-bold text-primary-foreground shadow-neon transition-colors hover:bg-primary/90">Cere audit</motion.button>
+          <motion.button whileHover={{ y: -2 }} whileTap={{ scale: .96 }} onClick={() => scrollTo("contact")} className="rounded-lg bg-primary px-4 py-2.5 text-xs font-bold text-primary-foreground transition-colors hover:bg-primary/90">Hai să vorbim</motion.button>
         </div>
         <div className="md:hidden">
           <MenuButton open={menuOpen} onToggle={() => setMenuOpen((open) => !open)} />
         </div>
-      </div>
+      </motion.div>
       <AnimatePresence>
-        {menuOpen && <motion.div className="fixed inset-0 z-50 bg-background/70 p-4 backdrop-blur-md md:p-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMenuOpen(false)}>
-          <motion.nav aria-label="Navigație principală" initial={{ opacity: 0, y: -30, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -18, scale: .98 }} transition={{ type: "spring", stiffness: 260, damping: 24 }} onClick={(event) => event.stopPropagation()} className="menu-panel mx-auto mt-20 max-w-3xl overflow-hidden rounded-3xl border border-primary/30 bg-nav p-6 backdrop-blur-2xl md:p-10">
+        {menuOpen && <motion.div className="fixed inset-0 z-50 bg-background/90 p-4 md:p-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMenuOpen(false)}>
+          <motion.nav aria-label="Navigație principală" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ type: "spring", stiffness: 260, damping: 24 }} onClick={(event) => event.stopPropagation()} className="menu-panel mx-auto mt-20 max-w-3xl overflow-hidden rounded-2xl border border-border bg-nav p-6 md:p-10">
             <div className="mb-8 flex items-center gap-3 border-b border-border pb-6"><span className="grid size-10 place-items-center rounded-xl border border-primary/40 bg-primary/10 font-black text-primary">C</span><p className="font-display text-xl font-bold">CICLO<span className="text-primary">PYC</span></p></div>
             <div className="grid gap-2 sm:grid-cols-2">{nav.map(([label, id], index) => <Button key={id} variant="ghost" className="h-auto justify-between rounded-2xl border border-transparent px-5 py-4 text-left font-display text-lg hover:border-border hover:bg-accent" onClick={() => { setMenuOpen(false); if (id === "portofoliu") navigate({ to: "/portofoliu" }); else if (id === "blog") navigate({ to: "/blog" }); else scrollTo(id); }}><span><small className="mr-3 text-[10px] text-primary">0{index + 1}</small>{label}</span><ArrowUpRight /></Button>)}</div>
             <div className="mt-8 flex items-center justify-between border-t border-border pt-6 text-xs text-muted-foreground"><span>BUCUREȘTI / RO</span><span>AVAILABLE FOR PROJECTS</span></div>
@@ -220,81 +199,58 @@ function Index() {
         </motion.div>}
       </AnimatePresence>
 
-      <section className="relative min-h-screen overflow-hidden border-b border-border">
-        {/* Fundal hero — înlocuiește adresa imaginii de mai jos cu fotografia ta */}
-        <img src={heroBg} alt="" className="absolute inset-0 z-0 h-full w-full object-cover object-center" />
-        <div className="absolute inset-0 bg-background/65" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/75 via-background/20 to-background/95" />
-        <BinaryRain />
-        <div className="perspective-grid absolute inset-x-0 bottom-0 h-1/2 opacity-40" />
-        <div className="red-haze absolute right-0 top-12 h-[600px] w-[600px]" />
-        <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col px-5 pb-10 pt-8 md:px-8 md:pb-14 md:pt-10 lg:pb-16 lg:pt-12">
-          <motion.h1
-            aria-label="CICLOPYC"
-            initial="hidden"
-            animate="visible"
-            variants={{ hidden: {}, visible: { transition: { delayChildren: .12, staggerChildren: .06 } } }}
-            className="relative z-10 flex self-start overflow-visible font-display text-[clamp(3rem,8vw,6rem)] font-black leading-[.8] lg:-ml-8"
-          >
-            {Array.from("CICLOPYC").map((letter, index) => (
-              <motion.span
-                aria-hidden="true"
-                key={`${letter}-${index}`}
-                variants={{
-                  hidden: { opacity: 0, y: 24, rotateX: -60, filter: "blur(8px)" },
-                  visible: { opacity: 1, y: 0, rotateX: 0, filter: "blur(0px)", transition: { type: "spring", stiffness: 190, damping: 18 } },
-                }}
-                whileHover={{ y: -8, scale: 1.08, rotateX: 10, transition: { type: "spring", stiffness: 320, damping: 14 } }}
-                className="brand-shine hero-letter inline-block origin-bottom"
-                style={{ transformPerspective: 700 }}
-              >
-                {letter}
-              </motion.span>
-            ))}
-          </motion.h1>
-          <div className="relative z-10 mx-auto mt-14 flex w-full max-w-3xl flex-1 flex-col items-center justify-center pb-20 text-center md:mt-24 md:pb-24 lg:mt-32">
-            <h2 className="hero-headline max-w-3xl font-display text-3xl font-semibold leading-[1.05] md:text-5xl">Site-uri web de înaltă performanță care <span className="relative mt-2 block min-h-[2.2em] text-primary md:min-h-[1.1em]"><AnimatePresence mode="wait"><motion.span key={heroPhrases[heroPhraseIndex]} initial={{ opacity: 0, y: 16, filter: "blur(8px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -16, filter: "blur(8px)" }} transition={{ duration: .45, ease: "easeOut" }} className="block">{heroPhrases[heroPhraseIndex]}</motion.span></AnimatePresence></span></h2>
-            <div className="mt-10 flex w-full max-w-sm flex-col items-center gap-4">
-              <Button onClick={() => scrollTo("shop")} className="h-16 w-full rounded-2xl bg-primary px-8 text-base font-bold shadow-neon hover:bg-primary/90">Comandă acum <ArrowUpRight /></Button>
-              <Button onClick={() => scrollTo("contact")} className="h-16 w-full rounded-2xl border border-primary/50 bg-card/80 px-8 text-base font-bold text-foreground backdrop-blur-xl hover:bg-accent">Cere audit <ChevronRight /></Button>
-            </div>
-            <div className="mt-8 grid w-full max-w-sm grid-cols-2 gap-3">
-              <Counter value={24} suffix="/7" label="Suport" compact />
-              <Counter value={14} suffix=" zile" label="Gata de lansare" compact />
+      <section className="relative min-h-screen overflow-hidden">
+        <img src={serviceModels[0].detailImage} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-center" />
+        <div className="absolute inset-0 bg-white/74" />
+        <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col px-5 pb-6 pt-8 md:px-8 md:pb-8 md:pt-10 lg:pt-12">
+          <div className="h-[3.75rem] md:h-24" aria-hidden="true" />
+          {!introVisible && <motion.h1 layoutId="ciclopyc-wordmark" aria-label="CICLOPYC" className="absolute left-5 top-8 z-10 font-display text-6xl font-black leading-none text-foreground md:left-8 md:top-10 md:text-8xl">CICLOPYC</motion.h1>}
+          <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center py-8 pb-10 text-center">
+            <div className="max-w-3xl">
+              <motion.h2 initial={false} animate={revealStage >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }} transition={{ duration: .85, ease: "easeOut" }} className="hero-headline mx-auto mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.05] md:text-6xl"><span className="block">Site-uri web de înaltă performanță care</span><span className="relative mt-2 block min-h-[1.2em] text-signal">{revealStage >= 2 && <AnimatePresence mode="wait"><motion.span key={heroPhrases[heroPhraseIndex]} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: .55, ease: "easeOut" }} className="block">{heroPhrases[heroPhraseIndex]}</motion.span></AnimatePresence>}</span></motion.h2>
+              <motion.p initial={false} animate={revealStage >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }} transition={{ duration: .8, ease: "easeOut" }} className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted-foreground lg:mx-0">Strategie, design și dezvoltare într-un singur proces. Construim instrumente digitale care fac oferta ta mai ușor de înțeles și de ales.</motion.p>
+              <motion.div initial={false} animate={revealStage >= 3 ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 24, scale: .96 }} transition={{ duration: .9, ease: "easeOut" }} className="mx-auto mt-8 flex w-full max-w-md flex-col justify-center gap-3 sm:flex-row">
+                <Button onClick={() => scrollTo("shop")} className="hero-action h-14 rounded-lg bg-primary px-7 text-base font-bold text-primary-foreground shadow-sm hover:bg-primary/90">Vezi serviciile <ArrowUpRight /></Button>
+                <Button onClick={() => scrollTo("contact")} className="hero-action h-14 rounded-lg border border-border bg-card px-7 text-base font-bold text-foreground hover:bg-accent">Hai să discutăm <ChevronRight /></Button>
+              </motion.div>
+              <motion.div initial={false} animate={revealStage >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} transition={{ duration: .85, ease: "easeOut", delay: .08 }} className="mx-auto mt-8 grid w-full max-w-sm grid-cols-2 gap-3">
+                <Counter value={24} suffix="/7" label="Suport" compact />
+                <Counter value={14} suffix=" zile" label="Gata de lansare" compact />
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
       <section id="portfolio" className="section-shell">
-        <SectionHead eyebrow="01 / SELECTED WORK" title="Proiecte selectate" copy="Interfețe create pentru branduri care refuză să treacă neobservate." />
+        <SectionHead eyebrow="01 / PROIECTE" title="Proiecte selectate" copy="Interfețe create pentru branduri care refuză să treacă neobservate." />
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {projects.map((item, index) => <motion.article key={item.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * .1 }} className="tactile-card group overflow-hidden rounded-2xl border border-border bg-card">
+          {projects.map((item, index) => <motion.article key={item.title} initial={{ opacity: 0, y: 54, scale: .92, rotateX: 7 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -12, scale: 1.025, rotateZ: index === 1 ? 0 : index === 0 ? -.35 : .35 }} whileTap={{ y: 2, scale: .985 }} viewport={{ once: true, margin: "-60px" }} transition={{ delay: index * .14, duration: .9, ease: "easeOut" }} style={{ transformPerspective: 1000 }} className="tactile-card group overflow-hidden rounded-2xl border border-border bg-card">
             <div className="project-art"><img src={item.image} alt={`Previzualizare ${item.title}`} loading="lazy" /><span className="project-number">{item.number}</span><div className="mock-window"><div className="mock-top"><i /><i /><i /></div><div className="mock-photo"><img src={item.image} alt="" /></div></div></div>
             <div className="p-6"><p className="text-[10px] font-bold text-primary">{item.category}</p><h3 className="mt-2 font-display text-2xl font-semibold">{item.title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{item.copy}</p><Button variant="ghost" className="mt-5 -ml-3 rounded-xl text-xs" onClick={() => setProject(item)}>Vezi proiectul <ArrowUpRight /></Button></div>
           </motion.article>)}
         </div>
-        <div className="mt-10 flex justify-center"><Link to="/portofoliu"><Button className="h-12 rounded-xl bg-primary px-6 font-bold shadow-neon hover:bg-primary/90">Vezi portofoliul complet cu site-uri live <ArrowUpRight /></Button></Link></div>
+        <div className="mt-10 flex justify-center"><Link to="/portofoliu"><Button className="h-12 rounded-lg bg-primary px-6 font-bold text-primary-foreground shadow-sm hover:bg-primary/90">Vezi portofoliul complet <ArrowUpRight /></Button></Link></div>
       </section>
 
       <section id="stats" className="border-y border-border bg-surface py-20">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border px-0 md:grid-cols-4">
-          {[[100, "%", "Proiecte live"], [2, "+", "Ani de experiență"], [1, "s", "Timp de încărcare"], [24, "/7", "Monitorizare"]].map(([value, suffix, label]) => <Counter key={String(label)} value={Number(value)} suffix={String(suffix)} label={String(label)} />)}
+          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border px-0 md:grid-cols-4">
+            {[[100, "%", "Proiecte live"], [2, "+", "Ani de experiență"], [1, "s", "Timp de încărcare"], [24, "/7", "Monitorizare"]].map(([value, suffix, label]) => <Counter key={String(label)} value={Number(value)} suffix={String(suffix)} label={String(label)} />)}
 
         </div>
-        <div className="marquee mt-14 overflow-hidden py-7"><div className="marquee-track flex w-max items-center gap-20">{[...Array(2)].flatMap((_, copy) => toolBrands.map(({ mark, name, font, icon }) => <span key={`${copy}-${name}`} className={`marquee-brand marquee-brand-${font}`}><i className="marquee-mark" aria-hidden="true">{icon ? <svg viewBox="0 0 24 24" role="img" aria-label={`${name} logo`}><path d={icon.path} /></svg> : mark}</i>{name}</span>))}</div></div>
+        <div className="marquee mt-14 overflow-hidden py-7" aria-label="Instrumente folosite în proiecte"><motion.div className="flex w-max items-center gap-12 md:gap-20" animate={reducedMotion ? { x: 0 } : { x: ["0%", "-50%"] }} transition={{ duration: 36, ease: "linear", repeat: Infinity }}>{[...Array(2)].flatMap((_, copy) => toolBrands.map(({ mark, name, font, color, icon }) => <motion.span key={`${copy}-${name}`} whileHover={reducedMotion ? undefined : { y: -7, scale: 1.08, rotate: -1 }} transition={{ type: "spring", stiffness: 240, damping: 16 }} className={`marquee-brand marquee-brand-${font}`}><i className="marquee-mark" style={{ color }} aria-hidden="true">{icon ? <svg viewBox="0 0 24 24" role="img" aria-label={`${name} logo`}><path d={icon.path} /></svg> : mark}</i>{name}</motion.span>))}</motion.div></div>
       </section>
 
       <section id="reviews" className="section-shell">
-        <SectionHead eyebrow="02 / CLIENT VOICES" title="Rezultate care se simt" copy="Parteneriate măsurate în creștere, nu în promisiuni." />
+        <SectionHead eyebrow="02 / RECENZII" title="Rezultate care se simt" copy="Parteneriate măsurate în creștere, nu în promisiuni." />
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {testimonials.map(({ quote, name, role, avatar }) => <article key={name} tabIndex={0} className="tactile-card rounded-2xl border border-border bg-card p-6"><div className="mb-6 flex gap-1 text-primary">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3 fill-current" />)}</div><p className="text-lg leading-7">„{quote}”</p><div className="mt-8 flex items-center gap-3 border-t border-border pt-5"><img src={avatar} alt={`Portret ${name}`} loading="lazy" className="size-10 rounded-full object-cover" /><div><p className="text-sm font-semibold">{name}</p><p className="text-xs text-muted-foreground">{role}</p></div></div></article>)}
+          {testimonials.map(({ quote, name, role, avatar }, index) => <motion.article key={name} tabIndex={0} initial={{ opacity: 0, y: 48, scale: .94, rotateY: index % 2 ? 7 : -7 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }} whileHover={{ y: -10, scale: 1.025 }} whileTap={{ scale: .99 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: index * .16, duration: .85, ease: "easeOut" }} style={{ transformPerspective: 900 }} className="tactile-card rounded-2xl border border-border bg-card p-6"><div className="mb-6 flex gap-1 text-signal">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3 fill-current" />)}</div><p className="text-lg leading-7">„{quote}”</p><div className="mt-8 flex items-center gap-3 border-t border-border pt-5"><img src={avatar} alt={`Portret ${name}`} loading="lazy" className="size-10 rounded-full object-cover" /><div><p className="text-sm font-semibold">{name}</p><p className="text-xs text-muted-foreground">{role}</p></div></div></motion.article>)}
         </div>
       </section>
 
       <section id="shop" className="border-y border-border bg-surface py-24">
-        <div className="mx-auto max-w-7xl px-5 md:px-8"><SectionHead eyebrow="03 / BASE MODELS" title="Lansează mai repede" copy="Baze premium, personalizate pentru identitatea și obiectivele afacerii tale." />
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">{templates.map((item, index) => <article key={item.name} tabIndex={0} className="tactile-card relative overflow-hidden rounded-2xl border border-border bg-card p-6"><div className="template-visual mb-7"><img src={item.image} alt={`Model ${item.name}`} loading="lazy" /><span>{item.type}</span><div className="template-lines"><i /><i /><i /></div></div><p className="text-[10px] font-bold text-primary">MODEL 0{index + 1}</p><h3 className="mt-2 font-display text-2xl font-semibold">{item.name}</h3><ul className="mt-6 space-y-3">{item.features.map((feature) => <li key={feature} className="flex items-center gap-3 text-sm text-muted-foreground"><Check className="size-4 text-primary" />{feature}</li>)}</ul><div className="mt-8 flex items-center justify-between border-t border-border pt-6"><div><p className="text-[10px] text-muted-foreground"></p><p className="font-display text-2xl font-bold"></p></div><Button onClick={() => setTemplate(item)} className="rounded-xl bg-primary font-bold shadow-neon hover:bg-primary/90"><ShoppingBag /> Trimite comandă</Button></div></article>)}</div>
+          <div className="mx-auto max-w-7xl px-5 md:px-8"><SectionHead eyebrow="03 / SERVICII" title="Servicii cu scop clar." copy="Alege direcția potrivită și vezi ce include, cui i se potrivește și cum se formează oferta." />
+          <div className="service-grid mt-12 grid gap-6 lg:grid-cols-3">{serviceModels.map((item, index) => <Link key={item.slug} to="/modele/$slug" params={{ slug: item.slug }} className="service-card-link group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"><motion.article initial={{ opacity: 0, y: 70, scale: .88, rotateX: 12 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -14, scale: 1.035, rotateZ: index === 1 ? 0 : index === 0 ? -.6 : .6 }} whileTap={{ y: 2, scale: .985 }} viewport={{ once: true, margin: "-70px" }} transition={{ delay: index * .18, duration: 1.05, ease: "easeOut" }} style={{ transformPerspective: 1100 }} className="service-card tactile-card flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors group-hover:border-signal/60"><div className="template-visual"><img src={item.image} alt={`Exemplu pentru ${item.name}`} loading="lazy" /><span>0{index + 1} / {item.type}</span></div><div className="flex flex-1 flex-col p-6"><p className="eyebrow">{item.category}</p><h3 className="mt-3 font-display text-2xl font-semibold">{item.name}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{item.summary}</p><ul className="mt-6 space-y-3">{item.cardFeatures.map((feature) => <li key={feature} className="flex items-start gap-3 text-sm"><Check className="mt-0.5 size-4 shrink-0 text-signal" />{feature}</li>)}</ul></div></motion.article></Link>)}</div>
         </div>
       </section>
 
@@ -303,7 +259,6 @@ function Index() {
           <div className="relative z-10 grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:items-center"><div><p className="eyebrow">04 / FREE AUDIT</p><h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">Solicită un Audit Web <span className="text-primary">Gratuit.</span></h2><p className="mt-5 max-w-md leading-7 text-muted-foreground">Îți arătăm unde pierzi viteză, claritate și conversii. Fără obligații, fără discurs de vânzare.</p>
             <div className="mt-8 space-y-4">
               <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 text-sm font-semibold text-foreground transition-colors hover:text-primary"><span className="grid size-10 place-items-center rounded-xl border border-border bg-background"><Mail className="size-4 text-primary" /></span>{EMAIL}</a>
-              <div className="flex gap-2 pt-2">{socials.filter(([, , kind]) => kind !== "mail").map(([label, href, kind]) => <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}><Button variant="outline" size="icon" className="rounded-xl border-border bg-background hover:border-primary/50" aria-label={label}>{kind === "instagram" ? <Instagram className="size-4" /> : <TikTokIcon />}</Button></a>)}</div>
             </div>
           </div>
             <form onSubmit={submitAudit} className="grid gap-4 rounded-2xl border border-border bg-background/70 p-5 backdrop-blur-xl sm:grid-cols-2">
@@ -311,7 +266,7 @@ function Index() {
               <label className="field-label">Email<input required name="email" type="email" maxLength={255} placeholder="email@companie.ro" className="field" /></label>
               <label className="field-label sm:col-span-2">URL site actual <span className="text-[10px] font-medium normal-case text-muted-foreground">(opțional)</span><input name="url" type="url" maxLength={255} placeholder="https:// — dacă ai deja un site" className="field" /></label>
               <label className="field-label sm:col-span-2">Buget estimat<select required name="budget" defaultValue="" className="field"><option value="" disabled>Alege un interval</option><option>300€ — 500€</option><option>500€ — 700€</option><option>700€ — 1.000€</option><option>Peste 1.000€</option></select></label>
-              <Button type="submit" className="mt-2 h-12 rounded-xl bg-primary font-bold shadow-neon hover:bg-primary/90 sm:col-span-2">Cere audit <ArrowUpRight /></Button>
+              <Button type="submit" className="mt-2 h-12 rounded-xl bg-primary font-bold text-primary-foreground shadow-sm hover:bg-primary/90 sm:col-span-2">Cere audit <ArrowUpRight /></Button>
             </form>
           </div>
         </div>
@@ -319,11 +274,21 @@ function Index() {
 
       <section id="faq" className="border-t border-border bg-surface py-24"><div className="mx-auto grid max-w-7xl gap-10 px-5 md:px-8 lg:grid-cols-[.7fr_1.3fr]"><SectionHead eyebrow="05 / FAQ" title="Întrebări. Răspunsuri clare." copy="Tot ce ai nevoie să știi înainte să începem." /><Accordion type="single" collapsible className="border-t border-border">{faqs.map(([question, answer], index) => <AccordionItem value={`item-${index}`} key={question} className="border-border"><AccordionTrigger className="py-6 text-left font-display text-base font-semibold hover:no-underline">{question}</AccordionTrigger><AccordionContent className="max-w-2xl pb-6 leading-7 text-muted-foreground">{answer}</AccordionContent></AccordionItem>)}</Accordion></div></section>
 
-      <footer id="footer" className="border-t border-border px-5 py-10 md:px-8"><div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1fr_auto] md:items-end"><div><p className="font-display text-2xl font-bold">CICLO<span className="text-primary">PYC</span></p><p className="mt-3 max-w-sm text-sm text-muted-foreground">Digital experiences, engineered to convert.</p><a href={`mailto:${EMAIL}`} className="mt-3 inline-block text-sm font-semibold text-foreground transition-colors hover:text-primary">{EMAIL}</a><p className="mt-8 text-[11px] text-muted-foreground">© 2026 CICLOPYC STUDIO · TOATE DREPTURILE REZERVATE · INFORMAȚII FISCALE LA CERERE</p></div><div className="flex gap-2">{socials.map(([label, href, kind]) => <a key={label} href={href} target={kind === "mail" ? undefined : "_blank"} rel="noopener noreferrer" aria-label={label}><Button variant="outline" size="icon" className="rounded-xl border-border bg-card hover:border-primary/50" aria-label={label}>{kind === "instagram" ? <Instagram className="size-4" /> : kind === "tiktok" ? <TikTokIcon /> : <Mail className="size-4" />}</Button></a>)}</div></div></footer>
+      <div id="footer"><SiteFooter /></div>
 
-      <Dialog open={Boolean(project)} onOpenChange={(open) => !open && setProject(null)}><DialogContent className="max-w-xl rounded-2xl border-border bg-card"><DialogHeader><p className="text-[10px] font-bold text-primary">{project?.category}</p><DialogTitle className="font-display text-3xl">{project?.title}</DialogTitle><DialogDescription className="pt-3 leading-6">{project?.copy}</DialogDescription></DialogHeader><div className="project-detail rounded-xl border border-border bg-background p-6"><p className="text-sm font-semibold">Impact proiect</p><div className="mt-5 grid grid-cols-3 gap-3 text-center"><div><b className="text-xl">0.8s</b><small>Încărcare</small></div><div><b className="text-xl">14 zile</b><small>FINALIZAT ÎN</small></div><div><b className="text-xl">200€</b><small>PREȚ</small></div></div></div></DialogContent></Dialog>
-      <Dialog open={Boolean(template)} onOpenChange={(open) => !open && setTemplate(null)}><DialogContent className="rounded-2xl border-border bg-card"><DialogHeader><DialogTitle className="font-display text-2xl">Comandă {template?.name}</DialogTitle><DialogDescription>Trimite-ne datele tale și revenim cu pașii de personalizare.</DialogDescription></DialogHeader><form onSubmit={submitOrder} className="grid gap-4"><label className="field-label">Nume<input required name="name" maxLength={100} className="field" /></label><label className="field-label">Email<input required name="email" type="email" maxLength={255} className="field" /></label><Button type="submit" className="mt-2 h-11 rounded-xl bg-primary font-bold">Trimite comanda <ArrowUpRight /></Button></form></DialogContent></Dialog>
+      <Dialog open={Boolean(project)} onOpenChange={(open) => !open && setProject(null)}><DialogContent className="max-w-xl rounded-2xl border-border bg-card"><DialogHeader><p className="text-[10px] font-bold text-primary">{project?.category}</p><DialogTitle className="font-display text-3xl">{project?.title}</DialogTitle><DialogDescription className="pt-3 leading-6">{project?.copy}</DialogDescription></DialogHeader><div className="project-detail rounded-xl border border-border bg-background p-5"><p className="text-sm font-semibold">Detalii proiect</p><div className="mt-4 grid grid-cols-3 gap-2 text-center"><Counter value={project?.loadSeconds ?? 0} suffix="s" decimals={1} label="Încărcare" dialog /><Counter value={project?.durationDays ?? 0} suffix=" zile" label="Finalizat în" dialog /><Counter value={project?.priceEuros ?? 0} suffix="€" label="Preț" dialog /></div></div></DialogContent></Dialog>
+      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3 md:bottom-8 md:right-8">
+        <AnimatePresence>
+          {contactOpen && <motion.div initial={{ opacity: 0, y: 12, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8, scale: .96 }} className="grid min-w-52 gap-1 rounded-2xl border border-border bg-card/95 p-2 shadow-2xl backdrop-blur-xl">
+            <a href={`tel:${CONTACT_PHONE}`} className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors hover:bg-accent"><Phone className="size-4" />Sună-ne</a>
+            <a href={`https://wa.me/${CONTACT_PHONE.replace("+", "")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors hover:bg-accent"><svg viewBox="0 0 24 24" className="size-4 fill-current" aria-hidden="true"><path d={siWhatsapp.path} /></svg>WhatsApp</a>
+            <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors hover:bg-accent"><Mail className="size-4" />Email</a>
+          </motion.div>}
+        </AnimatePresence>
+        <Button onClick={() => setContactOpen((open) => !open)} aria-expanded={contactOpen} aria-label={contactOpen ? "Închide opțiunile de contact" : "Deschide opțiunile de contact"} className="h-14 rounded-full bg-primary px-5 font-bold text-primary-foreground shadow-sm"><span>{contactOpen ? "Închide" : "Mesaj"}</span>{contactOpen ? <X /> : <MessageCircle />}</Button>
+      </div>
     </main>
+    </LayoutGroup>
   );
 }
 

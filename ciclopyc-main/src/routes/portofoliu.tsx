@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowUpRight, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SiteFooter } from "@/components/site-footer";
 import edenImage from "@/assets/eden-restaurant.jpg";
 import noirImage from "@/assets/noir-salon.jpg";
 import commerceImage from "@/assets/portfolio-commerce.jpg";
@@ -54,6 +55,7 @@ const liveProjects = [
 
 function Portofoliu() {
   return (
+    <>
     <main className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
       <section className="section-shell pt-32">
         <Link to="/">
@@ -67,7 +69,7 @@ function Portofoliu() {
 
         <div className="mt-14 grid gap-8">
           {liveProjects.map((project, index) => (
-            <motion.article key={project.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.12 }} className="group overflow-hidden rounded-3xl border border-border bg-card">
+            <motion.article key={project.name} initial={{ opacity: 0, y: 64, scale: .92, rotateX: 8 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -12, scale: 1.015, rotateZ: index % 2 ? .35 : -.35 }} whileTap={{ y: 2, scale: .99 }} viewport={{ once: true, margin: "-60px" }} transition={{ delay: index * 0.16, duration: .95, ease: "easeOut" }} style={{ transformPerspective: 1100 }} className="group tactile-card overflow-hidden rounded-3xl border border-border bg-card">
               <div className="grid lg:grid-cols-[1.1fr_.9fr]">
                 <div className="project-art min-h-[280px] lg:min-h-[420px]">
                   <img src={project.image} alt={`Site-ul ${project.name}`} loading="lazy" width={1536} height={1024} />
@@ -89,7 +91,7 @@ function Portofoliu() {
                     </div>
                   </div>
                   <a href={project.url} target="_blank" rel="noopener noreferrer" className="mt-8">
-                    <Button className="h-12 w-full rounded-xl bg-primary font-bold shadow-neon hover:bg-primary/90 sm:w-auto">
+                    <Button className="h-12 w-full rounded-xl bg-primary font-bold text-primary-foreground shadow-sm hover:bg-primary/90 sm:w-auto">
                       <Globe /> Vizitează site-ul live <ArrowUpRight />
                     </Button>
                   </a>
@@ -109,10 +111,12 @@ function Portofoliu() {
             </div>
           </div>
           <Link to="/" hash="contact">
-            <Button className="h-12 rounded-xl bg-primary px-6 font-bold shadow-neon hover:bg-primary/90">Cere audit gratuit <ArrowUpRight /></Button>
+            <Button className="h-12 rounded-xl bg-primary px-6 font-bold text-primary-foreground shadow-sm hover:bg-primary/90">Cere audit gratuit <ArrowUpRight /></Button>
           </Link>
         </motion.div>
       </section>
     </main>
+    <SiteFooter />
+    </>
   );
 }

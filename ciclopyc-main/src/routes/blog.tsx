@@ -2,6 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, Check, Clock3 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { SiteFooter } from "@/components/site-footer";
+import websiteArticleImage from "@/assets/unsplash-website-editorial.jpg";
+import investmentArticleImage from "@/assets/unsplash-agency-investment.jpg";
+import planningArticleImage from "@/assets/unsplash-service-planning.jpg";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
@@ -22,6 +26,8 @@ const articles = [
     number: "01",
     category: "STRATEGIE DIGITALĂ",
     title: "Cum știi dacă ai nevoie de un website",
+    image: websiteArticleImage,
+    imageAlt: "Laptop deschis pe un spațiu de lucru creativ",
     intro: "Un website nu este doar o carte de vizită online. Este locul în care un potențial client poate înțelege cine ești, ce oferi și de ce merită să te aleagă.",
     readTime: "6 min citire",
     sections: [
@@ -35,6 +41,8 @@ const articles = [
     number: "02",
     category: "INVESTIȚIE DIGITALĂ",
     title: "Ce înseamnă achiziția unui website",
+    image: investmentArticleImage,
+    imageAlt: "Echipă care discută un proiect la masă",
     intro: "Când cumperi un website, nu cumperi doar câteva pagini și un domeniu. Cumperi un instrument care trebuie să lucreze pentru afacerea ta în fiecare zi.",
     readTime: "7 min citire",
     sections: [
@@ -49,6 +57,8 @@ const articles = [
     number: "03",
     category: "GHID DE ALEGERE",
     title: "Cum să alegi pachetul potrivit pentru tine",
+    image: planningArticleImage,
+    imageAlt: "Colaborare pentru planificarea unui proiect digital",
     intro: "Pachetul potrivit nu este cel mai mare. Este cel care se potrivește cu etapa afacerii tale, cu obiectivele pe care le ai și cu nivelul de suport de care ai nevoie.",
     readTime: "8 min citire",
     sections: [
@@ -63,16 +73,16 @@ const articles = [
 
 function Blog() {
   return (
+    <>
     <main className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
       <section className="relative overflow-hidden border-b border-border px-5 pb-20 pt-10 md:px-8 md:pb-28 md:pt-14">
-        <div className="pointer-events-none absolute right-[-10rem] top-[-14rem] h-[34rem] w-[34rem] rounded-full bg-primary/10 blur-3xl" />
         <div className="relative mx-auto max-w-7xl">
           <Link to="/">
             <Button variant="ghost" className="-ml-3 mb-16 rounded-xl text-xs text-muted-foreground"><ArrowLeft /> Înapoi acasă</Button>
           </Link>
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="max-w-4xl">
             <p className="eyebrow">CICLOPYC / IDEI DIGITALE</p>
-            <h1 className="mt-5 font-display text-5xl font-bold leading-[.94] md:text-8xl">Un website bun începe cu <span className="text-primary">întrebările potrivite.</span></h1>
+            <h1 className="mt-5 font-editorial text-5xl font-normal leading-[.98] md:text-8xl">Un website bun începe cu <span className="text-signal">întrebările potrivite.</span></h1>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-muted-foreground">Ghiduri clare pentru antreprenori care vor să înțeleagă mai bine ce cumpără, de ce au nevoie și cum își pot construi următorul pas online.</p>
           </motion.div>
           <div className="mt-16 flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">
@@ -86,19 +96,21 @@ function Blog() {
       <section className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
         <div className="grid gap-8">
           {articles.map((article, index) => (
-            <motion.article key={article.number} id={`articol-${article.number}`} initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ delay: index * 0.08 }} className="overflow-hidden rounded-3xl border border-border bg-card">
+            <motion.article key={article.number} id={`articol-${article.number}`} initial={{ opacity: 0, y: 54, scale: .93, rotateX: 7 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -9, scale: 1.012 }} whileTap={{ y: 2, scale: .99 }} viewport={{ once: true, margin: "-80px" }} transition={{ delay: index * 0.13, duration: .9, ease: "easeOut" }} style={{ transformPerspective: 1000 }} className="group tactile-card overflow-hidden rounded-xl border border-border bg-card">
               <div className="grid lg:grid-cols-[.34fr_1fr]">
-                <div className="relative flex min-h-[250px] flex-col justify-between overflow-hidden border-b border-border bg-surface p-7 md:p-10 lg:border-b-0 lg:border-r">
-                  <div className="absolute -right-16 top-14 size-56 rounded-full border border-primary/30" />
-                  <div className="absolute -right-6 top-24 size-36 rounded-full border border-primary/20" />
-                  <p className="relative font-display text-7xl font-bold text-primary/80">{article.number}</p>
-                  <div className="relative">
-                    <p className="eyebrow">{article.category}</p>
-                    <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"><Clock3 className="size-3.5" />{article.readTime}</div>
+                <div className="blog-photo relative flex min-h-[280px] overflow-hidden border-b border-border lg:min-h-full lg:border-b-0 lg:border-r">
+                  <img src={article.image} alt={article.imageAlt} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+                  <div className="absolute inset-0 bg-black/15" />
+                  <div className="relative flex min-h-[280px] w-full flex-col justify-between p-6 md:p-8">
+                    <span className="grid size-12 place-items-center rounded-full bg-white font-display text-lg font-semibold text-foreground">{article.number}</span>
+                    <div className="w-fit rounded-md bg-white px-4 py-3 text-foreground">
+                      <p className="text-[10px] font-bold text-signal">{article.category}</p>
+                      <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground"><Clock3 className="size-3.5" />{article.readTime}</div>
+                    </div>
                   </div>
                 </div>
                 <div className="p-7 md:p-10 lg:p-14">
-                  <h2 className="max-w-3xl font-display text-3xl font-bold leading-tight md:text-5xl">{article.title}</h2>
+                  <h2 className="max-w-3xl font-editorial text-3xl font-normal leading-tight md:text-5xl">{article.title}</h2>
                   <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{article.intro}</p>
                   <div className="mt-10 grid gap-8 border-t border-border pt-10 md:grid-cols-2">
                     {article.sections.map(([heading, copy]) => (
@@ -121,9 +133,11 @@ function Blog() {
       <section className="border-t border-border bg-surface px-5 py-16 md:px-8 md:py-20">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 md:flex-row md:items-center">
           <div><p className="eyebrow">URMĂTORUL PAS</p><h2 className="mt-3 max-w-xl font-display text-3xl font-bold md:text-5xl">Ai întrebări despre website-ul tău?</h2><p className="mt-4 max-w-lg leading-7 text-muted-foreground">Spune-ne unde ești acum și îți recomandăm o direcție potrivită pentru obiectivele tale.</p></div>
-          <Link to="/" hash="contact"><Button className="h-12 rounded-xl bg-primary px-6 font-bold shadow-neon hover:bg-primary/90">Cere un audit gratuit <ArrowUpRight /></Button></Link>
+          <Link to="/" hash="contact"><Button className="h-12 rounded-xl bg-primary px-6 font-bold text-primary-foreground shadow-sm hover:bg-primary/90">Cere un audit gratuit <ArrowUpRight /></Button></Link>
         </div>
       </section>
     </main>
+    <SiteFooter />
+    </>
   );
 }

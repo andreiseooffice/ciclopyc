@@ -12,6 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as PortofoliuRouteImport } from './routes/portofoliu'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ModeleSlugRouteImport } from './routes/modele/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +31,70 @@ const PortofoliuRoute = PortofoliuRouteImport.update({
   path: '/portofoliu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModeleSlugRoute = ModeleSlugRouteImport.update({
+  id: '/modele/$slug',
+  path: '/modele/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
+  '/modele/$slug': typeof ModeleSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
+  '/modele/$slug': typeof ModeleSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
+  '/modele/$slug': typeof ModeleSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog' | '/portofoliu'
+  fullPaths:
+    '/' | '/blog' | '/portofoliu' | '/privacy' | '/terms' | '/modele/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog' | '/portofoliu'
-  id: '__root__' | '/' | '/blog' | '/portofoliu'
+  to: '/' | '/blog' | '/portofoliu' | '/privacy' | '/terms' | '/modele/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/blog'
+    | '/portofoliu'
+    | '/privacy'
+    | '/terms'
+    | '/modele/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRoute
   PortofoliuRoute: typeof PortofoliuRoute
+  PrivacyRoute: typeof PrivacyRoute
+  TermsRoute: typeof TermsRoute
+  ModeleSlugRoute: typeof ModeleSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +120,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortofoliuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modele/$slug': {
+      id: '/modele/$slug'
+      path: '/modele/$slug'
+      fullPath: '/modele/$slug'
+      preLoaderRoute: typeof ModeleSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +148,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRoute,
   PortofoliuRoute: PortofoliuRoute,
+  PrivacyRoute: PrivacyRoute,
+  TermsRoute: TermsRoute,
+  ModeleSlugRoute: ModeleSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
