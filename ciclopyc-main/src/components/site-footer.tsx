@@ -40,11 +40,11 @@ export function SiteFooter() {
         <p className="mt-5 text-[11px] text-muted-foreground">© 2026 CICLOPYC STUDIO · TOATE DREPTURILE REZERVATE</p>
       </div>
       <div className="flex flex-wrap items-center gap-5 lg:justify-end">
-        <a href="https://www.anpc.ro/sal/" target="_blank" rel="noopener noreferrer" className="flex h-14 items-center gap-2 rounded-lg border border-border px-3 transition-transform hover:-translate-y-1 active:translate-y-0.5" aria-label="Deschide pagina oficială ANPC despre soluționarea alternativă a litigiilor">
-          <img src={salPictogram} alt="Pictograma oficială ANPC S.A.L." className="max-h-10 max-w-12 object-contain" />
-          <span className="text-[10px] font-semibold leading-tight text-muted-foreground">S.A.L.<br />România</span>
+        <a href="https://www.anpc.ro/sal/" target="_blank" rel="noopener noreferrer" className="flex h-12 items-center rounded-lg border border-border px--1 transition-transform hover:-translate-y-1 active:translate-y-0.5" aria-label="Deschide pagina oficială ANPC despre soluționarea alternativă a litigiilor">
+          <img src={salPictogram} alt="Pictograma oficială ANPC S.A.L." className="max-h-42 max-w-180 object-contain" />
+         
         </a>
-        <a href="https://consumer-redress.ec.europa.eu/solution-finder_en" target="_blank" rel="noopener noreferrer" className="block h-[50px] w-[250px] overflow-hidden rounded-lg transition-transform hover:-translate-y-1 active:translate-y-0.5" aria-label="Deschide portalul oficial al Comisiei Europene pentru soluționarea online a litigiilor">
+        <a href="https://consumer-redress.ec.europa.eu/solution-finder_en" target="_blank" rel="noopener noreferrer" className="block h-[42px] w-[180px] overflow-hidden rounded-lg transition-transform hover:-translate-y-1 active:translate-y-0.5" aria-label="Deschide portalul oficial al Comisiei Europene pentru soluționarea online a litigiilor">
           <img src={europeanCommissionLogo} alt="" className="h-full w-full object-cover" />
         </a>
       </div>

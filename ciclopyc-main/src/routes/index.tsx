@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion, useTransform, type MotionValue } from "framer-motion";
 import { ArrowUpRight, Check, ChevronRight, Mail, Menu, MessageCircle, Phone, Star, X } from "lucide-react";
 import { siFigma, siFramer, siGoogle, siWebflow, siWhatsapp } from "simple-icons";
 import { toast } from "sonner";
@@ -60,6 +60,98 @@ const toolBrands = [
 ];
 const heroPhrases = ["transformă vizitatorii în clienți.", "îți construiesc imaginea online.", "lucrează în locul tău."];
 
+// Cronologia intro-ului (secunde). Aici reglezi tot.
+const INTRO = {
+  logoIn: 0.15,        // logo-ul apare în centru
+  loadStart: 0.6,      // pornește "încărcarea"
+  loadDuration: 1.4,
+  loaderOut: 2.1,      // loader-ul dispare
+  drift: 2.4,          // logo-ul pleacă spre stânga sus
+  driftDuration: 1.1,
+  overlayOut: 2.5,     // fundalul alb începe să se dizolve
+  stage1: 3.0,         // nav + prima linie din titlu
+  stage2: 3.5,         // textul roșu
+  stage3: 3.9,         // butoane
+  stage4: 4.3,         // carduri
+};
+
+/** Litera "O" din logo: un ochi care privește în jur și clipește. Dimensiunile sunt în em, deci urmează mărimea textului. */
+function CyclopsEye() {
+  const reduced = useReducedMotion();
+  return (
+    <motion.span
+      aria-hidden="true"
+      className="relative mx-[.025em] inline-block size-[.74em] overflow-hidden rounded-full border-[.1em] border-current bg-background"
+      animate={reduced ? false : { scaleY: [1, 1, 0.08, 1, 1] }}
+      transition={{ duration: 5, times: [0, 0.86, 0.91, 0.96, 1], ease: "easeInOut", repeat: Infinity }}
+    >
+      <motion.span
+        className="absolute inset-0 m-auto block size-[.3em] rounded-full bg-signal"
+        animate={reduced ? false : {
+          x: ["0%", "-40%", "-40%", "38%", "38%", "0%", "0%"],
+          y: ["0%", "-10%", "-10%", "16%", "16%", "-30%", "0%"],
+        }}
+        transition={{ duration: 7, times: [0, 0.14, 0.3, 0.5, 0.66, 0.82, 1], ease: "easeInOut", repeat: Infinity }}
+      >
+        <span className="absolute inset-0 m-auto size-[44%] rounded-full bg-foreground" />
+        <span className="absolute left-[18%] top-[14%] size-[24%] rounded-full bg-white/90" />
+      </motion.span>
+    </motion.span>
+  );
+}
+
+/** Loader-ul din splash: inel cu progres + procent, interactiv la hover/tap. */
+function IntroLoader({ progress, done }: { progress: MotionValue<number>; done: boolean }) {
+  const arc = useTransform(progress, (v) => v / 100);
+  const label = useTransform(progress, (v) => `${Math.round(v)}%`);
+  return (
+    <div className="absolute left-1/2 top-1/2 mt-[3.25rem] -translate-x-1/2 md:mt-[4.5rem]">
+      <motion.div
+        initial={{ opacity: 0, y: 12, scale: 0.85 }}
+        animate={done
+          ? { opacity: 0, y: -8, scale: 0.8, transition: { duration: 0.5, ease: "easeOut" } }
+          : { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, delay: INTRO.loadStart - 0.25, ease: "easeOut" } }}
+        whileHover={done ? {} : { scale: 1.12, transition: { type: "spring", stiffness: 300, damping: 18 } }}
+        whileTap={done ? {} : { scale: 0.9 }}
+        className="relative grid size-14 cursor-pointer place-items-center text-foreground"
+      >
+        <svg viewBox="0 0 56 56" className="absolute inset-0 size-full -rotate-90" aria-hidden="true">
+          <circle cx="28" cy="28" r="24" fill="none" stroke="currentColor" strokeOpacity=".12" strokeWidth="3" />
+          <motion.circle cx="28" cy="28" r="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" style={{ pathLength: arc }} className="text-signal" />
+        </svg>
+        <motion.span className="absolute inset-0" animate={{ rotate: 360 }} transition={{ duration: 1.8, ease: "linear", repeat: Infinity }}>
+          <span className="absolute -top-[3px] left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-foreground" />
+        </motion.span>
+        <motion.span className="text-[11px] font-bold tabular-nums">{label}</motion.span>
+      </motion.div>
+    </div>
+  );
+}
+
+/** Text care apare cuvânt cu cuvânt, urcând dintr-o mască. */
+function RevealWords({ text, show, delay = 0 }: { text: string; show: boolean; delay?: number }) {
+  const words = text.split(" ");
+  return (
+    <>
+      {words.map((word, i) => (
+        <span key={i}>
+          <span className="inline-block overflow-hidden py-[.14em] -my-[.14em] align-bottom">
+            <motion.span
+              className="inline-block"
+              initial={false}
+              animate={show ? { y: "0%", opacity: 1 } : { y: "110%", opacity: 0 }}
+              transition={{ duration: 0.7, delay: delay + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {word}
+            </motion.span>
+          </span>
+          {i < words.length - 1 && " "}
+        </span>
+      ))}
+    </>
+  );
+}
+
 function scrollTo(id: string) { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); }
 
 function Counter({ value, suffix = "", label, compact = false, dialog = false, decimals = 0 }: { value: number; suffix?: string; label: string; compact?: boolean; dialog?: boolean; decimals?: number }) {
@@ -104,7 +196,7 @@ function Counter({ value, suffix = "", label, compact = false, dialog = false, d
       onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); replay(); } }}
       initial={prefersReducedMotion ? false : { opacity: 0, y: 30, scale: .9, rotateX: 8 }}
       whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-      whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.035 }}
+      whileHover={prefersReducedMotion ? {} : { y: -6, scale: 1.035 }}
       viewport={{ once: false, amount: .45, margin: "-30px" }}
       transition={{ duration: .85, ease: "easeOut" }}
       style={{ transformPerspective: 900 }}
@@ -128,52 +220,131 @@ function Index() {
   const reducedMotion = useReducedMotion();
   const [introVisible, setIntroVisible] = useState(true);
   const [revealStage, setRevealStage] = useState(0);
+  const [introDone, setIntroDone] = useState(false);
+  const [loaderDone, setLoaderDone] = useState(false);
+  const logoRef = useRef<HTMLHeadingElement>(null);
+  const loadProgress = useMotionValue(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [project, setProject] = useState<(typeof projects)[number] | null>(null);
   const [heroPhraseIndex, setHeroPhraseIndex] = useState(0);
   const [contactOpen, setContactOpen] = useState(false);
+  const [sending, setSending] = useState(false);
 
+  const phrasesActive = revealStage >= 3;
   useEffect(() => {
+    if (!phrasesActive) return;
     const phraseTimer = window.setInterval(() => {
       setHeroPhraseIndex((index) => (index + 1) % heroPhrases.length);
-    }, 3600);
+    }, 2800);
     return () => window.clearInterval(phraseTimer);
-  }, []);
+  }, [phrasesActive]);
+  useEffect(() => {
+    if (!contactOpen) return;
+    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") setContactOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [contactOpen]);
 
   useEffect(() => {
     if (reducedMotion === null) return;
+    const el = logoRef.current;
+    if (!el) return;
+
     if (reducedMotion) {
+      el.style.opacity = "1";
       setIntroVisible(false);
-      setRevealStage(3);
+      setLoaderDone(true);
+      setRevealStage(4);
+      setIntroDone(true);
       return;
     }
-    const timers = [
-      window.setTimeout(() => setIntroVisible(false), 450),
-      window.setTimeout(() => setRevealStage(1), 850),
-      window.setTimeout(() => setRevealStage(2), 1550),
-      window.setTimeout(() => setRevealStage(3), 2250),
-    ];
-    return () => timers.forEach((timer) => window.clearTimeout(timer));
-  }, [reducedMotion]);
 
-  const submitAudit = (event: FormEvent<HTMLFormElement>) => {
+    const parent = el.offsetParent as HTMLElement | null;
+    if (!parent) return;
+
+    // blochează scroll-ul și pornește de sus (altfel #contact din URL ar scoate logo-ul din ecran)
+    const root = document.documentElement;
+    const prevOverflow = root.style.overflow;
+    const prevGutter = root.style.scrollbarGutter;
+    root.style.scrollbarGutter = "stable";
+    root.style.overflow = "hidden";
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+    // cât trebuie mutat logo-ul din locul lui final în centrul ecranului
+    const box = parent.getBoundingClientRect();
+    const dx = root.clientWidth / 2 - (box.left + el.offsetLeft + el.offsetWidth / 2);
+    const dy = window.innerHeight / 2 - (box.top + el.offsetTop + el.offsetHeight / 2);
+    const startScale = root.clientWidth >= 768 ? 0.8 : 0.85;
+
+    loadProgress.set(0);
+    animate(el, { x: dx, y: dy, scale: startScale }, { duration: 0 });
+
+    const controls = [
+      animate(el, { opacity: [0, 1], filter: ["blur(10px)", "blur(0px)"] }, { delay: INTRO.logoIn, duration: 0.8, ease: "easeOut" }),
+      animate(loadProgress, 100, { delay: INTRO.loadStart, duration: INTRO.loadDuration, ease: [0.5, 0, 0.2, 1] }),
+      animate(el, { x: [dx, 0], y: [dy, 0], scale: [startScale, 1] }, { delay: INTRO.drift, duration: INTRO.driftDuration, ease: [0.76, 0, 0.24, 1] }),
+    ];
+
+    const at = (seconds: number, fn: () => void) => window.setTimeout(fn, seconds * 1000);
+    const timers = [
+      at(INTRO.loaderOut, () => setLoaderDone(true)),
+      at(INTRO.overlayOut, () => setIntroVisible(false)),
+      at(INTRO.stage1, () => setRevealStage(1)),
+      at(INTRO.stage2, () => setRevealStage(2)),
+      at(INTRO.stage3, () => setRevealStage(3)),
+      at(INTRO.stage4, () => setRevealStage(4)),
+      at(INTRO.drift + INTRO.driftDuration, () => { setIntroDone(true); root.style.overflow = prevOverflow; root.style.scrollbarGutter = prevGutter; }),
+    ];
+
+    return () => {
+      controls.forEach((control) => control.stop());
+      timers.forEach((timer) => window.clearTimeout(timer));
+      root.style.overflow = prevOverflow;
+      root.style.scrollbarGutter = prevGutter;
+    };
+  }, [reducedMotion, loadProgress]);
+
+  const submitAudit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    if (data.get("botcheck")) return; // honeypot anti-spam
     const name = String(data.get("name") ?? "").slice(0, 100);
     const email = String(data.get("email") ?? "").slice(0, 255);
     const url = String(data.get("url") ?? "").slice(0, 255);
     const budget = String(data.get("budget") ?? "");
-    const body = `Nume: ${name}\nEmail: ${email}\nSite actual: ${url.trim() || "Nu are site"}\nBuget: ${budget}`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Audit Web Gratuit — " + name)}&body=${encodeURIComponent(body)}`;
-    event.currentTarget.reset();
-    toast.success("Cererea este pregătită.", { description: `Se deschide aplicația ta de e-mail către ${EMAIL}.` });
+
+    setSending(true);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: import.meta.env['VITE_WEB3FORMS_KEY'],
+          subject: `Audit Web Gratuit — ${name}`,
+          from_name: "CICLOPYC · Audit",
+          name,
+          email,
+          "Site actual": url.trim() || "Nu are site",
+          Buget: budget,
+        }),
+      });
+      const result = await response.json();
+      if (!result.success) throw new Error(result.message);
+      form.reset();
+      toast.success("Cererea a fost trimisă!", { description: "Te vom contacta în maxim 24 de ore." });
+    } catch {
+      toast.error("Nu s-a putut trimite.", { description: `Încearcă din nou sau scrie-ne direct la ${EMAIL}.` });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
-    <LayoutGroup id="ciclopyc-intro">
+    <>
       <AnimatePresence initial={false}>
-        {introVisible && <motion.div key="intro-splash" initial={{ opacity: 1 }} exit={{ opacity: 0, transition: { delay: .62, duration: .32 } }} className="fixed inset-0 z-[100] grid place-items-center bg-background" aria-hidden="true">
-          <motion.h1 layoutId="ciclopyc-wordmark" transition={{ type: "spring", stiffness: 115, damping: 24, mass: 1 }} className="font-display text-5xl font-black text-foreground md:text-7xl">CICLOPYC</motion.h1>
+        {introVisible && <motion.div key="intro-splash" initial={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.9, ease: "easeInOut" } }} className="fixed inset-0 z-[100] bg-background" aria-hidden="true">
+          <IntroLoader progress={loadProgress} done={loaderDone} />
         </motion.div>}
       </AnimatePresence>
     <main id="home" className="min-h-screen overflow-hidden bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
@@ -204,18 +375,18 @@ function Index() {
         <div className="absolute inset-0 bg-white/74" />
         <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col px-5 pb-6 pt-8 md:px-8 md:pb-8 md:pt-10 lg:pt-12">
           <div className="h-[3.75rem] md:h-24" aria-hidden="true" />
-          {!introVisible && <motion.h1 layoutId="ciclopyc-wordmark" aria-label="CICLOPYC" className="absolute left-5 top-8 z-10 font-display text-6xl font-black leading-none text-foreground md:left-8 md:top-10 md:text-8xl">CICLOPYC</motion.h1>}
+          <h1 ref={logoRef} aria-label="CICLOPYC" style={{ opacity: 0 }} className={`absolute left-5 top-8 font-display text-6xl font-black leading-none text-foreground will-change-transform md:left-8 md:top-10 md:text-8xl ${introDone ? "z-10" : "z-[110]"}`}>CICL<CyclopsEye />PYC</h1>
           <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center py-8 pb-10 text-center">
             <div className="max-w-3xl">
-              <motion.h2 initial={false} animate={revealStage >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }} transition={{ duration: .85, ease: "easeOut" }} className="hero-headline mx-auto mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.05] md:text-6xl"><span className="block">Site-uri web de înaltă performanță care</span><span className="relative mt-2 block min-h-[1.2em] text-signal">{revealStage >= 2 && <AnimatePresence mode="wait"><motion.span key={heroPhrases[heroPhraseIndex]} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: .55, ease: "easeOut" }} className="block">{heroPhrases[heroPhraseIndex]}</motion.span></AnimatePresence>}</span></motion.h2>
-              <motion.p initial={false} animate={revealStage >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }} transition={{ duration: .8, ease: "easeOut" }} className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted-foreground lg:mx-0">Strategie, design și dezvoltare într-un singur proces. Construim instrumente digitale care fac oferta ta mai ușor de înțeles și de ales.</motion.p>
+              <h2 className="hero-headline mx-auto mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.05] md:text-6xl"><span className="block"><RevealWords text="Site-uri web de înaltă performanță care" show={revealStage >= 1} /></span><span className="relative mt-2 block min-h-[2.3em] text-signal">{revealStage >= 2 && <AnimatePresence mode="wait"><motion.span key={heroPhrases[heroPhraseIndex]} initial={{ opacity: 0, y: 22, filter: "blur(8px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }} exit={{ opacity: 0, y: -10, filter: "blur(6px)", transition: { duration: 0.6, ease: "easeInOut" } }} className="block">{heroPhrases[heroPhraseIndex]}</motion.span></AnimatePresence>}</span></h2>
+
               <motion.div initial={false} animate={revealStage >= 3 ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 24, scale: .96 }} transition={{ duration: .9, ease: "easeOut" }} className="mx-auto mt-8 flex w-full max-w-md flex-col justify-center gap-3 sm:flex-row">
                 <Button onClick={() => scrollTo("shop")} className="hero-action h-14 rounded-lg bg-primary px-7 text-base font-bold text-primary-foreground shadow-sm hover:bg-primary/90">Vezi serviciile <ArrowUpRight /></Button>
                 <Button onClick={() => scrollTo("contact")} className="hero-action h-14 rounded-lg border border-border bg-card px-7 text-base font-bold text-foreground hover:bg-accent">Hai să discutăm <ChevronRight /></Button>
               </motion.div>
-              <motion.div initial={false} animate={revealStage >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} transition={{ duration: .85, ease: "easeOut", delay: .08 }} className="mx-auto mt-8 grid w-full max-w-sm grid-cols-2 gap-3">
-                <Counter value={24} suffix="/7" label="Suport" compact />
-                <Counter value={14} suffix=" zile" label="Gata de lansare" compact />
+              <motion.div initial={false} animate={revealStage >= 4 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} transition={{ duration: 0.85, ease: "easeOut" }} className="mx-auto mt-8 grid w-full max-w-sm grid-cols-2 gap-3">
+                <Counter key={`s-${revealStage >= 4}`} value={24} suffix="/7" label="Suport" compact />
+                <Counter key={`z-${revealStage >= 4}`} value={14} suffix=" zile" label="Gata de lansare" compact />
               </motion.div>
             </div>
           </div>
@@ -238,7 +409,7 @@ function Index() {
             {[[100, "%", "Proiecte live"], [2, "+", "Ani de experiență"], [1, "s", "Timp de încărcare"], [24, "/7", "Monitorizare"]].map(([value, suffix, label]) => <Counter key={String(label)} value={Number(value)} suffix={String(suffix)} label={String(label)} />)}
 
         </div>
-        <div className="marquee mt-14 overflow-hidden py-7" aria-label="Instrumente folosite în proiecte"><motion.div className="flex w-max items-center gap-12 md:gap-20" animate={reducedMotion ? { x: 0 } : { x: ["0%", "-50%"] }} transition={{ duration: 36, ease: "linear", repeat: Infinity }}>{[...Array(2)].flatMap((_, copy) => toolBrands.map(({ mark, name, font, color, icon }) => <motion.span key={`${copy}-${name}`} whileHover={reducedMotion ? undefined : { y: -7, scale: 1.08, rotate: -1 }} transition={{ type: "spring", stiffness: 240, damping: 16 }} className={`marquee-brand marquee-brand-${font}`}><i className="marquee-mark" style={{ color }} aria-hidden="true">{icon ? <svg viewBox="0 0 24 24" role="img" aria-label={`${name} logo`}><path d={icon.path} /></svg> : mark}</i>{name}</motion.span>))}</motion.div></div>
+        <div className="marquee mt-14 overflow-hidden py-7" aria-label="Instrumente folosite în proiecte"><motion.div className="flex w-max items-center gap-12 md:gap-20" animate={reducedMotion ? { x: 0 } : { x: ["0%", "-50%"] }} transition={{ duration: 36, ease: "linear", repeat: Infinity }}>{[...Array(2)].flatMap((_, copy) => toolBrands.map(({ mark, name, font, color, icon }) => <motion.span key={`${copy}-${name}`} whileHover={reducedMotion ? {} : { y: -7, scale: 1.08, rotate: -1 }} transition={{ type: "spring", stiffness: 240, damping: 16 }} className={`marquee-brand marquee-brand-${font}`}><i className="marquee-mark" style={{ color }} aria-hidden="true">{icon ? <svg viewBox="0 0 24 24" role="img" aria-label={`${name} logo`}><path d={icon.path} /></svg> : mark}</i>{name}</motion.span>))}</motion.div></div>
       </section>
 
       <section id="reviews" className="section-shell">
@@ -262,11 +433,12 @@ function Index() {
             </div>
           </div>
             <form onSubmit={submitAudit} className="grid gap-4 rounded-2xl border border-border bg-background/70 p-5 backdrop-blur-xl sm:grid-cols-2">
+              <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
               <label className="field-label">Nume<input required name="name" maxLength={100} placeholder="Numele tău" className="field" /></label>
               <label className="field-label">Email<input required name="email" type="email" maxLength={255} placeholder="email@companie.ro" className="field" /></label>
               <label className="field-label sm:col-span-2">URL site actual <span className="text-[10px] font-medium normal-case text-muted-foreground">(opțional)</span><input name="url" type="url" maxLength={255} placeholder="https:// — dacă ai deja un site" className="field" /></label>
               <label className="field-label sm:col-span-2">Buget estimat<select required name="budget" defaultValue="" className="field"><option value="" disabled>Alege un interval</option><option>300€ — 500€</option><option>500€ — 700€</option><option>700€ — 1.000€</option><option>Peste 1.000€</option></select></label>
-              <Button type="submit" className="mt-2 h-12 rounded-xl bg-primary font-bold text-primary-foreground shadow-sm hover:bg-primary/90 sm:col-span-2">Cere audit <ArrowUpRight /></Button>
+              <Button type="submit" disabled={sending} className="mt-2 h-12 rounded-xl bg-primary font-bold text-primary-foreground shadow-sm hover:bg-primary/90 disabled:opacity-60 sm:col-span-2">{sending ? "Se trimite..." : <>Cere audit <ArrowUpRight /></>}</Button>
             </form>
           </div>
         </div>
@@ -277,21 +449,32 @@ function Index() {
       <div id="footer"><SiteFooter /></div>
 
       <Dialog open={Boolean(project)} onOpenChange={(open) => !open && setProject(null)}><DialogContent className="max-w-xl rounded-2xl border-border bg-card"><DialogHeader><p className="text-[10px] font-bold text-primary">{project?.category}</p><DialogTitle className="font-display text-3xl">{project?.title}</DialogTitle><DialogDescription className="pt-3 leading-6">{project?.copy}</DialogDescription></DialogHeader><div className="project-detail rounded-xl border border-border bg-background p-5"><p className="text-sm font-semibold">Detalii proiect</p><div className="mt-4 grid grid-cols-3 gap-2 text-center"><Counter value={project?.loadSeconds ?? 0} suffix="s" decimals={1} label="Încărcare" dialog /><Counter value={project?.durationDays ?? 0} suffix=" zile" label="Finalizat în" dialog /><Counter value={project?.priceEuros ?? 0} suffix="€" label="Preț" dialog /></div></div></DialogContent></Dialog>
+            {contactOpen && <div className="fixed inset-0 z-30" onClick={() => setContactOpen(false)} aria-hidden="true" />}
       <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3 md:bottom-8 md:right-8">
         <AnimatePresence>
-          {contactOpen && <motion.div initial={{ opacity: 0, y: 12, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8, scale: .96 }} className="grid min-w-52 gap-1 rounded-2xl border border-border bg-card/95 p-2 shadow-2xl backdrop-blur-xl">
-            <a href={`tel:${CONTACT_PHONE}`} className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors hover:bg-accent"><Phone className="size-4" />Sună-ne</a>
-            <a href={`https://wa.me/${CONTACT_PHONE.replace("+", "")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors hover:bg-accent"><svg viewBox="0 0 24 24" className="size-4 fill-current" aria-hidden="true"><path d={siWhatsapp.path} /></svg>WhatsApp</a>
-            <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors hover:bg-accent"><Mail className="size-4" />Email</a>
+          {contactOpen && <motion.div initial={{ opacity: 0, y: 12, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8, scale: .96 }} style={{ transformOrigin: "bottom right" }} className="grid min-w-52 gap-1 rounded-2xl border border-border bg-card/95 p-2 shadow-2xl backdrop-blur-xl">
+            <a href={`tel:${CONTACT_PHONE}`} onClick={() => setContactOpen(false)} className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors hover:bg-accent"><Phone className="size-4" />Sună-ne</a>
+            <a href={`https://wa.me/${CONTACT_PHONE.replace("+", "")}`} target="_blank" rel="noopener noreferrer" onClick={() => setContactOpen(false)} className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors hover:bg-accent"><svg viewBox="0 0 24 24" className="size-4 fill-current" aria-hidden="true"><path d={siWhatsapp.path} /></svg>WhatsApp</a>
+            <a href={`mailto:${EMAIL}`} onClick={() => setContactOpen(false)} className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors hover:bg-accent"><Mail className="size-4" />Email</a>
           </motion.div>}
         </AnimatePresence>
-        <Button onClick={() => setContactOpen((open) => !open)} aria-expanded={contactOpen} aria-label={contactOpen ? "Închide opțiunile de contact" : "Deschide opțiunile de contact"} className="h-14 rounded-full bg-primary px-5 font-bold text-primary-foreground shadow-sm"><span>{contactOpen ? "Închide" : "Mesaj"}</span>{contactOpen ? <X /> : <MessageCircle />}</Button>
+        <div className="relative">
+          
+          
+          <motion.div
+            animate={introDone && !contactOpen && !reducedMotion ? { rotate: [0, 0, -7, 7, -5, 5, 0, 0] } : { rotate: 0 }}
+            transition={{ duration: 4.8, times: [0, 0.6, 0.66, 0.72, 0.78, 0.84, 0.9, 1], ease: "easeInOut", repeat: Infinity }}
+          >
+            <Button onClick={() => setContactOpen((open) => !open)} aria-expanded={contactOpen} aria-label={contactOpen ? "Închide opțiunile de contact" : "Deschide opțiunile de contact"} className="relative h-14 rounded-full bg-primary px-5 font-bold text-primary-foreground shadow-sm"><span>{contactOpen ? "Închide" : "Mesaj"}</span>{contactOpen ? <X /> : <MessageCircle />}</Button>
+          </motion.div>
+        </div>
       </div>
     </main>
-    </LayoutGroup>
+    </>
   );
 }
 
 function SectionHead({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) {
   return <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl"><p className="eyebrow">{eyebrow}</p><h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">{title}</h2><p className="mt-5 max-w-xl leading-7 text-muted-foreground">{copy}</p></motion.div>;
 }
+
