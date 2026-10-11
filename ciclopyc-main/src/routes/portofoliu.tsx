@@ -64,7 +64,7 @@ function Portofoliu() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="max-w-3xl">
           <p className="eyebrow">PORTOFOLIU / LIVE</p>
           <h1 className="mt-4 font-display text-5xl font-bold leading-[0.95] md:text-7xl">Proiecte <span className="text-primary">CICLOPYC.</span></h1>
-          <p className="mt-6 max-w-xl leading-7 text-muted-foreground">Site-uri reale, live chiar acum. Fiecare proiect a fost construit pentru viteză, claritate și conversii — apasă și explorează-le direct.</p>
+          <p className="mt-6 max-w-xl leading-7 text-muted-foreground">Colaborări cu care ne mândrim și platformele livrate partenerilor care au apelat la ajutorul nostru.</p>
         </motion.div>
 
         <div className="mt-14 grid gap-8">

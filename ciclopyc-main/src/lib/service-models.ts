@@ -8,7 +8,7 @@ import automationDetailImage from "@/assets/unsplash-agency-investment.jpg";
 export const serviceModels = [
   {
     slug: "website",
-    name: "Site de prezentare",
+    name: "Site Web",
     type: "WEBSITE",
     category: "PREZENȚĂ DIGITALĂ",
     image: websiteImage,
@@ -16,13 +16,13 @@ export const serviceModels = [
     detailImage: websiteDetailImage,
     detailImageAlt: "Interfață de lucru pentru dezvoltarea unui website",
     summary:
-      "O prezență online construită să explice rapid de ce să te aleagă și să transforme interesul în cereri reale.",
+      "Construim site-uri performante și cursive care ghidează clientul direct către ofertă. De la proiecte simple de prezentare până la platforme complexe cu soluții de automatizare integrate.",
     description:
-      "Primești mai mult decât o pagină frumoasă: un website propriu care îți prezintă oferta cu claritate, răspunde la întrebările importante și conduce vizitatorul spre următorul pas. Structura, textele și interfața sunt gândite împreună pentru afacerea ta, astfel încât brandul să pară la fel de profesionist online precum este în realitate.",
+      "Vrei să fii ușor de găsit pe internet? Un site de prezentare este soluția ideală. Primul lucru pe care îl face un client când are nevoie de serviciul tău este să dea un search rapid pe Google. Paginile de Tiktok, Facebook sau Instagram sunt utile pentru marketing, însă primul lucru care apare este website-ul.",
     audience:
-      "Pentru afaceri de servicii, cabinete, studiouri și branduri care depind prea mult de rețele sociale sau recomandări. Este o bază solidă atunci când vrei să fii găsit, să explici mai bine ce faci și să primești solicitări fără să răspunzi de fiecare dată la aceleași întrebări.",
+      "Cu antreprenorii care vor să-și extindă afacerea și să simplifice munca pe care o fac deja. Cu cabinete, studiouri și branduri care depind prea mult de rețele sociale sau recomandări. Este structura ideală pentru orice afacere care depinde de recomandările prin viu grai sau de clienții cu vechime.",
     promise:
-      "La final ai un punct de referință digital al brandului tău: clar, ușor de folosit pe telefon și pregătit să susțină conversații comerciale.",
+      "Internetul poate fi accesat de oricine. Adu-ți serviciul mai aproape de clienții tăi și de milioanele de utilizatori care folosesc zilnic Google.",
     cardFeatures: [
       "Structură și design personalizate",
       "Optimizat pentru mobil",
@@ -39,14 +39,14 @@ export const serviceModels = [
     ],
     process: [
       {
-        title: "Descoperim",
+        title: "Căutăm",
         detail:
-          "Clarificăm clienții tăi, oferta, materialele existente și ce înseamnă o solicitare bună pentru afacere.",
+          "Clarificăm clienții tăi, oferta, materialele existente și ce scop va avea site-ul în afacerea ta.",
       },
       {
         title: "Organizăm",
         detail:
-          "Stabilim paginile, ordinea informației și mesajele care ajută vizitatorul să ia o decizie.",
+          "Stabilim paginile, preferințele tale și mesajele care ajută vizitatorul să ia o decizie.",
       },
       {
         title: "Construim",
@@ -60,15 +60,15 @@ export const serviceModels = [
       },
     ],
     benefits: [
-      "Clienții înțeleg mai repede ce oferi și dacă serviciul li se potrivește.",
-      "Un traseu simplu de la prima vizită până la mesaj, apel sau programare.",
-      "Mai puține întrebări repetitive, pentru că informațiile importante sunt deja la vedere.",
-      "O impresie coerentă și credibilă pe mobil, tabletă și desktop.",
-      "O pagină proprie pe care o poți trimite în oferte, reclame și conversații comerciale.",
-      "O fundație pe care poți adăuga ulterior pagini, servicii sau funcții noi.",
+      "Clienții înțeleg mai repede ce oferi și de ce să cumpere de la tine.",
+      "Un traseu simplu de la ofertă până la mesaj, apel sau programare.",
+      "Imagine și credibilitate pentru audiența nouă.",
+      "Performanță și viteză de încărcare pe mobil, tabletă și desktop.",
+      "O pagină proprie pe care o poți trimite în oferte, reclame și celor care vor să înțeleagă mai bine ce oferi.",
+      "O fundație pe care poți adăuga ulterior pagini, servicii sau reclame pentru afacerea ta.",
     ],
     pricingIntro:
-      "Prețul reflectă munca necesară pentru a transforma informațiile despre afacerea ta într-un website coerent, nu doar numărul de ecrane. O ofertă bună include timp pentru structură, design, dezvoltare, adaptare pe mobil și verificare, cu livrabile stabilite înainte de start. Primești costul și calendarul în scris înainte să înceapă proiectul.",
+      "Prețul depinde de dimensiunea proiectului, de funcțiile alese și de cerințele clienților noștri",
     pricingFactors: [
       "Numărul și tipul paginilor",
       "Copywriting, editarea și pregătirea imaginilor",

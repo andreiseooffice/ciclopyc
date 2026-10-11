@@ -110,16 +110,16 @@ function ServiceModelPage() {
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr]">
             <div>
               <p className="eyebrow">PENTRU CINE</p>
-              <h2 className="mt-3 font-display text-3xl font-semibold">
-                Un serviciu cu un scop clar.
+              <h2 className="mt-3 font-display text-5xl font-semibold">
+                Cu cine colaborăm?
               </h2>
             </div>
             <div>
               <p className="max-w-3xl text-lg leading-8 text-muted-foreground">{model.audience}</p>
               <p className="mt-6 max-w-3xl text-sm leading-7 text-muted-foreground">
                 Pornim de la felul în care lucrezi acum și stabilim împreună ce trebuie să rămână
-                simplu, ce merită automatizat și ce informații au nevoie clienții ca să poată decide
-                cu încredere.
+                simplu, ce automatizăm și de ce informații au nevoie clienții ca să te poată alege pe tine.
+                
               </p>
             </div>
           </div>
@@ -134,9 +134,9 @@ function ServiceModelPage() {
         >
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr]">
             <div>
-              <p className="eyebrow">REZULTATUL PENTRU TINE</p>
+              <p className="eyebrow">REZULTATUL</p>
               <h2 className="mt-3 font-editorial text-4xl font-normal md:text-5xl">
-                Mai multă claritate. Mai puțină muncă repetată.
+                Mai puțină muncă repetată, mai multe rezultate.
               </h2>
             </div>
             <ul className="grid gap-x-10 gap-y-6 sm:grid-cols-2">
@@ -156,13 +156,13 @@ function ServiceModelPage() {
         <section className="border-y border-border bg-surface px-5 py-16 md:px-8 md:py-20">
           <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.7fr_1.3fr]">
             <div>
-              <p className="eyebrow">LIVRABILE</p>
+              <p className="eyebrow">CE LIVRĂM</p>
               <h2 className="mt-3 font-editorial text-4xl font-normal md:text-5xl">
-                Știi exact ce primești.
+                Știi exact ce plătești.
               </h2>
               <p className="mt-5 max-w-md text-sm leading-7 text-muted-foreground">
-                Înainte să începem, transformăm cerințele într-o listă clară de livrabile. Oferta
-                finală precizează ce este inclus, calendarul și responsabilitățile fiecărei părți.
+                Înainte să începem, realizăm un plan de lucru ușor de înțeles pentru client. Oferta
+                precizează ce este inclus, calendarul și ce poate solicita clientul în plus.
               </p>
             </div>
             <ul className="divide-y divide-border border-y border-border">
@@ -192,7 +192,7 @@ function ServiceModelPage() {
             <div className="max-w-2xl">
               <p className="eyebrow">CUM LUCRĂM</p>
               <h2 className="mt-3 font-editorial text-4xl font-normal md:text-5xl">
-                Un proces clar, de la prima discuție până la lansare.
+                Un parcurs clar, de la prima discuție până la lansare.
               </h2>
             </div>
             <div className="mt-10 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-4">
@@ -223,12 +223,12 @@ function ServiceModelPage() {
             <div>
               <p className="eyebrow">INVESTIȚIE</p>
               <h2 className="mt-3 font-display text-3xl font-semibold md:text-4xl">
-                De ce diferă prețul?
+                Cum calculăm prețul?
               </h2>
               <p className="mt-5 text-sm leading-7 text-muted-foreground">{model.pricingIntro}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold">Oferta ține cont de:</p>
+              <p className="text-sm font-semibold">Valoarea facturii ține cont de:</p>
               <ul className="mt-4 divide-y divide-border border-y border-border">
                 {model.pricingFactors.map((factor, index) => (
                   <li key={factor} className="flex items-start gap-4 py-4 text-sm">

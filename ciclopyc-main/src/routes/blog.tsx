@@ -24,48 +24,48 @@ export const Route = createFileRoute("/blog")({
 const articles = [
   {
     number: "01",
-    category: "STRATEGIE DIGITALĂ",
-    title: "Cum știi dacă ai nevoie de un website",
+    category: "DIGITALIZARE",
+    title: "De ce ai nevoie de un website?",
     image: websiteArticleImage,
     imageAlt: "Laptop deschis pe un spațiu de lucru creativ",
-    intro: "Un website nu este doar o carte de vizită online. Este locul în care un potențial client poate înțelege cine ești, ce oferi și de ce merită să te aleagă.",
+    intro: "Digitalizarea accelerată din ultimii 10 ani a transformat serviciile de software într-o necesitate pentru toate firmele la nivel global. Încet dar sigur, traficul de clienți crește rapid doar din zona online.",
     readTime: "6 min citire",
     sections: [
-      ["Când depinzi prea mult de platforme care nu sunt ale tale", "Dacă toată afacerea ta trăiește într-o rețea socială, într-un marketplace sau într-un profil de hărți, nu controlezi complet relația cu publicul tău. Algoritmul se schimbă, reach-ul scade, iar informațiile importante se pierd printre postări. Un website îți oferă un spațiu propriu, stabil și construit în jurul obiectivelor tale."],
-      ["Când clienții pun aceleași întrebări din nou și din nou", "Un site bun răspunde înainte ca vizitatorul să întrebe: ce vinzi, pentru cine este, cât durează, cât costă și cum poate începe. Astfel, echipa ta pierde mai puțin timp cu explicații repetitive, iar clienții potriviți ajung mai repede la următorul pas."],
-      ["Când vrei să fii găsit și după ce trece o campanie", "O postare are o viață scurtă. Un website optimizat poate atrage trafic din Google luni sau ani după publicare. Pagini bine scrise pentru servicii, locații și întrebări frecvente construiesc vizibilitate în timp și transformă căutările în conversații reale."],
+      ["Pentru că chiar acum cineva te caută", "Undeva de acasă, cineva are nevoie de serviciul pe care îl oferi. Ce face? Caută pe Google, bineînțeles. Însă nu te găsește dacă tu nu vrei să fii găsit, așa că deschide primul website din căutări și ajunge direct la concurența ta. Practic ce s-a întâmplat? Faptul că poate ai deja vechime în zonă și afacerea este cunoscută nu te-a ajutat deoarece online, nu exiști. Însă acum poți schimba asta."],
+      ["Pentru că lucrează pentru tine", "Un site bun răspunde înainte ca vizitatorul să întrebe: ce vinzi, pentru cine este, cât durează, cât costă și cum poate începe. Așa nu vei mai pierde timp cu explicații repetitive, iar clienții potriviți vor ajunge mai repede la următorul pas. Simplu și eficient, fără apeluri inutile, fără mesaje deranjante."],
+      ["Pentru că nu cumperi doar un site", "Cumperi imagine și rezultate. Paginile bine scrise pentru servicii, locație și prezentare construiesc vizibilitatea și transformă căutările în conversații reale. Publicarea unei afaceri online transformă audiența sa de la câteva sute la milioane de oameni care citesc, se uită, se interesează."],
     ],
     conclusion: "Dacă ai o ofertă clară, clienți care caută informații online sau o afacere pe care vrei să o crești, probabil ai nevoie de un website. Nu trebuie să începi cu ceva complicat. Ai nevoie de o fundație clară, credibilă și ușor de folosit.",
   },
   {
     number: "02",
-    category: "INVESTIȚIE DIGITALĂ",
-    title: "Ce înseamnă achiziția unui website",
+    category: "SaaS",
+    title: "Ce înseamnă Software-as-a-Service?",
     image: investmentArticleImage,
     imageAlt: "Echipă care discută un proiect la masă",
-    intro: "Când cumperi un website, nu cumperi doar câteva pagini și un domeniu. Cumperi un instrument care trebuie să lucreze pentru afacerea ta în fiecare zi.",
+    intro: "Când cumperi un serviciu software, nu cumperi doar o platformă și un domeniu. Cumperi un instrument care trebuie să lucreze pentru afacerea ta în fiecare zi.",
     readTime: "7 min citire",
     sections: [
-      ["Strategie și structură", "Înainte de design, un website are nevoie de o logică. Stabilim ce trebuie să afle vizitatorul, ce acțiune vrem să facă și cum îl ghidăm acolo. Structura potrivită reduce confuzia și face oferta mai ușor de înțeles."],
-      ["Design și identitate", "Primești o interfață construită în jurul brandului tău: culori, tipografie, imagini, ton și ierarhie vizuală. Designul nu este decor; el transmite nivelul de atenție pe care îl vei acorda clientului și face diferența dintre o pagină generică și o experiență memorabilă."],
-      ["Dezvoltare, performanță și mobil", "Site-ul trebuie să se încarce rapid, să funcționeze corect pe telefon și să fie accesibil pentru motoarele de căutare. Un website cumpărat corect include implementare tehnică, formulare funcționale, pagini responsive și verificări înainte de lansare."],
-      ["Lansare și control", "La final primești un website public, configurat și pregătit pentru utilizare. În funcție de pachet, poți primi și instruire, mentenanță, monitorizare sau sprijin pentru următoarele îmbunătățiri. Important este să știi ce deții și cum poate evolua site-ul după lansare."],
+      ["Structură", "Înainte de design, un serviciu software are nevoie de logică. Stabilim ce trebuie să afle vizitatorul, ce acțiune vrem să facă și îl ghidăm acolo. Structura potrivită elimină confuzia și face oferta ușor de înțeles, accesat și cumpărat."],
+      ["Design și identitate", "Interfața pe care o primești este construită în jurul brandului tău: culori, tipografie, imagini, ton și ierarhie vizuală. Designul nu este decor; el transmite nivelul de atenție pe care îl vei acorda clientului și face diferența dintre o pagină generică și una construită de o echipă care știe ce are de făcut."],
+      ["Dezvoltare, performanță și viteză", "Platforma trebuie să se încarce rapid, să funcționeze corect pe telefon și să fie accesibil pentru motoarele de căutare. Un website cumpărat corect include implementare tehnică, formulare funcționale, pagini responsive și verificări înainte de lansare. De aceea oferim mentenanță și suport tehnic 24/7 pe toată perioada contractului de lucru."],
+      ["Lansare și control", "La final primești serviciul testat, configurat și pregătit pentru utilizare. În funcție de pachet, poți primi și instruire, mentenanță avansată, monitorizare sau îmbunătățiri și actualizări constante. Important este să știi ce deții și cum poate evolua chiar și după lansare."],
     ],
-    conclusion: "O achiziție bună îți lasă mai mult decât un link. Îți lasă un sistem clar de prezentare și conversie, pe care îl poți folosi pentru a atrage, convinge și servi clienți mai bine.",
+    conclusion: "O colaborare bună îți lasă mai mult decât un link. Îți lasă un sistem clar de prezentare și conversie, simplu de înțeles și folosit pentru oricine, care va lucra în locul tău continuu pentru a atrage, convinge și servi clienți mai bine.",
   },
   {
     number: "03",
-    category: "GHID DE ALEGERE",
-    title: "Cum să alegi pachetul potrivit pentru tine",
+    category: "CINE LIVREAZĂ",
+    title: "Cine suntem și ce ne motivează",
     image: planningArticleImage,
     imageAlt: "Colaborare pentru planificarea unui proiect digital",
-    intro: "Pachetul potrivit nu este cel mai mare. Este cel care se potrivește cu etapa afacerii tale, cu obiectivele pe care le ai și cu nivelul de suport de care ai nevoie.",
+    intro: "Povestea noastră a început cu doi colegi pasionați de informatică și dezvoltare a softurilor moderne. În timp, cererea pieții ne-a adus mai aproape de cei pe care urmărim să-i ajutăm, așa că ne-am extins echipa, cunoștințele și orizontul.",
     readTime: "8 min citire",
     sections: [
-      ["Standard — 299€", "Pachetul Standard este potrivit dacă ai nevoie de o prezență online clară și profesionistă, fără o structură complicată. Include o pagină bine organizată sau un site de prezentare compact, conținut esențial, design responsive și un traseu simplu către contact. Este un punct de pornire bun pentru freelanceri, servicii locale și afaceri aflate la început."],
-      ["Advanced — 599€", "Pachetul Advanced este pentru afaceri care vor mai mult decât o prezentare. Include mai multe pagini, o structură mai bogată pentru servicii, secțiuni dedicate conversiei, optimizare SEO de bază și interacțiuni care ajută vizitatorul să ia o decizie. Este alegerea echilibrată pentru un brand în creștere."],
-      ["Premium — 1000+€", "Pachetul Premium este construit pentru branduri care vor o experiență digitală distinctă și mai multă flexibilitate. Include direcție vizuală personalizată, arhitectură complexă, animații atent dozate, funcții avansate și o atenție mai mare pentru performanță și conversie. Este potrivit când website-ul devine o parte centrală din vânzare."],
-      ["Cum alegi practic", "Începe cu obiectivul, nu cu numărul de funcții. Dacă vrei doar să fii găsit și contactat, Standard poate fi suficient. Dacă ai mai multe servicii și vrei să explici diferențiatorii, Advanced oferă spațiul necesar. Dacă experiența brandului, lead-urile și personalizarea sunt prioritare, Premium îți oferă cea mai solidă bază."],
+      ["Cum lucrăm", "Procesul prin care trece fiecare dintre client al nostru este simplu și clar. Începem cu o discuție telefonică sau un apel zoom în care clientul decide, ajutat de noi dacă e cazul, elementele de design, aspectul exterior, numărul paginilor și ce funcționalități dorește pe site. Semnăm contractul de lucru, iar în cel mai scurt timp echipa noastră de dezvoltatori construiește serviciul. La final, livrăm produsul și emitem factura."],
+      ["Ce platforme folosim", "În dezvoltarea serviciilor cu marca noastră folosim platforme de ultimă generație pentru cea mai bună performanță. Cele mai populare modele, recomandate de specialiști IT din stackul nostru sunt VS Code, Supabase, Firebase, Codex, Webflow și altele din aceeași generație."],
+      ["Procesul prin care trec clienții noștri", "De la momentul semnării contractului, un membru al echipei se va ocupa de client și îl va ține la curent cu stadiile proiectului . Clientul primește un formular în care poate bifa tot ce dorește pentru platforma sa și completa cu informațiile de care avem noi nevoie. Pe toată durata procesului, ne ținem clienții la curent cu evoluția construcției. După emiterea facturii, oferim garanție și mentenanță."],
+      ["Ce oferim fiecărui client", "Fiecare colaborator al nostru primește întâi oferta noastră, contractul de lucru, factura și garanția pentru că vrem să fim cât se poate de transparenți cu partenerii noștri."],
     ],
     conclusion: "Poți începe cu un pachet potrivit momentului actual și îl poți extinde pe măsură ce afacerea crește. Un website bun este o investiție care se dezvoltă împreună cu tine, nu o decizie definitivă luată într-o singură zi.",
   },
@@ -82,13 +82,13 @@ function Blog() {
           </Link>
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="max-w-4xl">
             <p className="eyebrow">CICLOPYC / IDEI DIGITALE</p>
-            <h1 className="mt-5 font-editorial text-5xl font-normal leading-[.98] md:text-8xl">Un website bun începe cu <span className="text-signal">întrebările potrivite.</span></h1>
-            <p className="mt-8 max-w-2xl text-lg leading-8 text-muted-foreground">Ghiduri clare pentru antreprenori care vor să înțeleagă mai bine ce cumpără, de ce au nevoie și cum își pot construi următorul pas online.</p>
+            <h1 className="mt-5 font-editorial text-5xl font-normal leading-[.98] md:text-8xl">Un website bun este un website care <span className="text-signal">aduce clienți.</span></h1>
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-muted-foreground">Ghiduri clare pentru cei care vor să înțeleagă mai bine ce cumpără, de ce au nevoie și cum își pot construi următorul pas online.</p>
           </motion.div>
           <div className="mt-16 flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">
-            <span className="rounded-full border border-border bg-card/70 px-4 py-2">3 ghiduri</span>
-            <span className="rounded-full border border-border bg-card/70 px-4 py-2">Strategie, design, conversie</span>
-            <span className="rounded-full border border-border bg-card/70 px-4 py-2">Actualizat 2026</span>
+            <span className="rounded-full border border-border bg-card/70 px-4 py-2">Situația actuală</span>
+            <span className="rounded-full border border-border bg-card/70 px-4 py-2">Software as a Service</span>
+            <span className="rounded-full border border-border bg-card/70 px-4 py-2">Despre noi</span>
           </div>
         </div>
       </section>

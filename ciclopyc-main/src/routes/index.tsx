@@ -37,7 +37,7 @@ const nav: Array<[string, string]> = [["Acasă", "home"], ["Portofoliu", "portof
 const projects = [
   { category: "HORECA", title: "EDEN / Restaurant", copy: "Imaginea online a restaurantului EDEN: meniu digital, rezervări, galerie foto și alte caracteristici orientate către conversii și promovare.", image: commerceImage, number: "01", loadSeconds: 0.8, durationDays: 10, priceEuros: 480 },
   { category: "BEAUTY SALON", title: "NOIR NAIL / Salon", copy: "O platformă cu automatizare integrată, care transformă programările într-un lucru simplu pentru clienți. Intri, selectezi serviciul, te programezi și gata.", image: fintechImage, number: "02", loadSeconds: 0.7, durationDays: 14, priceEuros: 650 },
-  { category: "REGIM HOTELIER", title: "ALVERA / Hotel", copy: "Pagina de prezentare de care are nevoie orice hotel sau pensiune. Rezervări, detalii cazare, conversie clienți, toate într-un singur loc.", image: saasImage, number: "03", loadSeconds: 0.9, durationDays: 18, priceEuros: 820 },
+  { category: "REGIM HOTELIER", title: "ALVERA / Hotel", copy: "Pagina de prezentare de care are nevoie orice hotel sau pensiune. Rezervări, detalii cazare, conversie clienți, ușor de folosit dar greu de ignorat.", image: saasImage, number: "03", loadSeconds: 0.9, durationDays: 18, priceEuros: 820 },
 ];
 const testimonials = [
   { quote: "CICLOPYC a transformat complet felul în care suntem percepuți. Conversiile au crescut din prima lună.", name: "Elena Mitu", role: "Founder Nail Noir", avatar: maraAvatar },
@@ -46,8 +46,8 @@ const testimonials = [
 ];
 const faqs = [
   ["Cât durează livrarea unui site?", "Un proiect complet durează, în medie, între 10 și 14 zile lucrătoare. Primești un calendar clar înainte de start și actualizări la fiecare etapă."],
-  ["Ce tehnologii folosiți?", "Construim cu React, Next.js sau TanStack Start și Tailwind CSS. Alegem arhitectura potrivită obiectivelor, nu tehnologia cea mai la modă."],
-  ["Oferiți mentenanță după lansare?", "Da. Pachetele de mentenanță includ actualizări, monitorizare, îmbunătățiri de performanță și suport prioritar."],
+  ["Ce tehnologii folosiți?", "Construim cu React, Next.js sau TanStack Start și Tailwind CSS. Alegem în funcție de necesitățile fiecărui proiect și încercăm mereu să folosim cel mai potrivit stack."],
+  ["Oferiți garanție după lansare?", "Da. Pachetele de mentenanță includ garanție, monitorizare, îmbunătățiri de performanță și suport prioritar."],
   ["Pot porni de la un model și să îl personalizez?", "Absolut. Modelele sunt o bază eficientă, iar culorile, conținutul, funcțiile și structura pot fi adaptate brandului tău."],
 ];
 const toolBrands = [
@@ -394,7 +394,7 @@ function Index() {
       </section>
 
       <section id="portfolio" className="section-shell">
-        <SectionHead eyebrow="01 / PROIECTE" title="Proiecte selectate" copy="Interfețe create pentru branduri care refuză să treacă neobservate." />
+        <SectionHead eyebrow="01 / STATISTICI" title="Proiecte selectate" copy="Site-uri live și concepte realizate de noi. Cursivitate, performanță și securitate de top într-un singur loc." />
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
           {projects.map((item, index) => <motion.article key={item.title} initial={{ opacity: 0, y: 54, scale: .92, rotateX: 7 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -12, scale: 1.025, rotateZ: index === 1 ? 0 : index === 0 ? -.35 : .35 }} whileTap={{ y: 2, scale: .985 }} viewport={{ once: true, margin: "-60px" }} transition={{ delay: index * .14, duration: .9, ease: "easeOut" }} style={{ transformPerspective: 1000 }} className="tactile-card group overflow-hidden rounded-2xl border border-border bg-card">
             <div className="project-art"><img src={item.image} alt={`Previzualizare ${item.title}`} loading="lazy" /><span className="project-number">{item.number}</span><div className="mock-window"><div className="mock-top"><i /><i /><i /></div><div className="mock-photo"><img src={item.image} alt="" /></div></div></div>
@@ -413,21 +413,21 @@ function Index() {
       </section>
 
       <section id="reviews" className="section-shell">
-        <SectionHead eyebrow="02 / RECENZII" title="Rezultate care se simt" copy="Parteneriate măsurate în creștere, nu în promisiuni." />
+        <SectionHead eyebrow="02 / FEEDBACK" title="Reviews" copy="Numbers speak louder. Părerile celor pe care am avut plăcerea să-i ajutăm." />
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {testimonials.map(({ quote, name, role, avatar }, index) => <motion.article key={name} tabIndex={0} initial={{ opacity: 0, y: 48, scale: .94, rotateY: index % 2 ? 7 : -7 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }} whileHover={{ y: -10, scale: 1.025 }} whileTap={{ scale: .99 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: index * .16, duration: .85, ease: "easeOut" }} style={{ transformPerspective: 900 }} className="tactile-card rounded-2xl border border-border bg-card p-6"><div className="mb-6 flex gap-1 text-signal">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3 fill-current" />)}</div><p className="text-lg leading-7">„{quote}”</p><div className="mt-8 flex items-center gap-3 border-t border-border pt-5"><img src={avatar} alt={`Portret ${name}`} loading="lazy" className="size-10 rounded-full object-cover" /><div><p className="text-sm font-semibold">{name}</p><p className="text-xs text-muted-foreground">{role}</p></div></div></motion.article>)}
         </div>
       </section>
 
       <section id="shop" className="border-y border-border bg-surface py-24">
-          <div className="mx-auto max-w-7xl px-5 md:px-8"><SectionHead eyebrow="03 / SERVICII" title="Servicii cu scop clar." copy="Alege direcția potrivită și vezi ce include, cui i se potrivește și cum se formează oferta." />
+          <div className="mx-auto max-w-7xl px-5 md:px-8"><SectionHead eyebrow="03 / CE FACEM" title="Servicii software" copy="Nu e suficient ca un website să arate doar bine. Construim platforme care te fac vizibil online, performante și securizate la un nivel înalt." />
           <div className="service-grid mt-12 grid gap-6 lg:grid-cols-3">{serviceModels.map((item, index) => <Link key={item.slug} to="/modele/$slug" params={{ slug: item.slug }} className="service-card-link group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"><motion.article initial={{ opacity: 0, y: 70, scale: .88, rotateX: 12 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -14, scale: 1.035, rotateZ: index === 1 ? 0 : index === 0 ? -.6 : .6 }} whileTap={{ y: 2, scale: .985 }} viewport={{ once: true, margin: "-70px" }} transition={{ delay: index * .18, duration: 1.05, ease: "easeOut" }} style={{ transformPerspective: 1100 }} className="service-card tactile-card flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors group-hover:border-signal/60"><div className="template-visual"><img src={item.image} alt={`Exemplu pentru ${item.name}`} loading="lazy" /><span>0{index + 1} / {item.type}</span></div><div className="flex flex-1 flex-col p-6"><p className="eyebrow">{item.category}</p><h3 className="mt-3 font-display text-2xl font-semibold">{item.name}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{item.summary}</p><ul className="mt-6 space-y-3">{item.cardFeatures.map((feature) => <li key={feature} className="flex items-start gap-3 text-sm"><Check className="mt-0.5 size-4 shrink-0 text-signal" />{feature}</li>)}</ul></div></motion.article></Link>)}</div>
         </div>
       </section>
 
       <section id="contact" className="section-shell">
         <div className="audit-shell relative overflow-hidden rounded-3xl border border-primary/50 bg-card p-6 md:p-12 lg:p-16">
-          <div className="relative z-10 grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:items-center"><div><p className="eyebrow">04 / FREE AUDIT</p><h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">Solicită un Audit Web <span className="text-primary">Gratuit.</span></h2><p className="mt-5 max-w-md leading-7 text-muted-foreground">Îți arătăm unde pierzi viteză, claritate și conversii. Fără obligații, fără discurs de vânzare.</p>
+          <div className="relative z-10 grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:items-center"><div><p className="eyebrow">04 / DISCUTĂ CU NOI</p><h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">Solicită un Audit Web <span className="text-primary">Gratuit.</span></h2><p className="mt-5 max-w-md leading-7 text-muted-foreground">Îți arătăm unde pierzi viteză, claritate și conversii. Fără obligații, fără discurs de vânzare.</p>
             <div className="mt-8 space-y-4">
               <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 text-sm font-semibold text-foreground transition-colors hover:text-primary"><span className="grid size-10 place-items-center rounded-xl border border-border bg-background"><Mail className="size-4 text-primary" /></span>{EMAIL}</a>
             </div>

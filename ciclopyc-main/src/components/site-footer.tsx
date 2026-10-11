@@ -24,7 +24,7 @@ export function SiteFooter() {
           <span className="grid size-7 place-items-center rounded-md border border-border text-xs">C</span>
           <span>CICLOPYC</span>
         </Link>
-        <p className="mt-3 text-sm text-muted-foreground">Digital experiences, engineered to convert.</p>
+        <p className="mt-3 text-sm text-muted-foreground">Nimic fără Dumnezeu ☦︎</p>
         <a href={`mailto:${EMAIL}`} className="mt-2 inline-block text-sm text-muted-foreground transition-colors hover:text-foreground">{EMAIL}</a>
         <div className="mt-4 flex gap-2">
           {socials.map(({ label, href, icon }) => <a key={label} href={href} target={label === "Email" ? undefined : "_blank"} rel="noopener noreferrer" aria-label={label}>
