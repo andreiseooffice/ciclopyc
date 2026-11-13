@@ -3,7 +3,7 @@ import { Instagram, Mail } from "lucide-react";
 import { siTiktok } from "simple-icons";
 import { Button } from "@/components/ui/button";
 import salPictogram from "@/assets/sal-online-pictogram.png";
-import europeanCommissionLogo from "@/assets/eu-commission-logo.svg";
+import solPictogram from "@/assets/sol-online-pictogram.png";
 
 const EMAIL = "office.andrei.seo@gmail.com";
 const socials = [
@@ -35,7 +35,6 @@ export function SiteFooter() {
           <Link to="/privacy" className="transition-colors hover:text-foreground">Confidențialitate</Link>
           <Link to="/terms" className="transition-colors hover:text-foreground">Termeni și condiții</Link>
           <button type="button" onClick={openCookieSettings} className="transition-colors hover:text-foreground">Setări cookie-uri</button>
-          <a href="https://www.anpc.ro/sal/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-foreground">S.A.L. România</a>
         </nav>
         <p className="mt-5 text-[11px] text-muted-foreground">© 2026 CICLOPYC STUDIO · TOATE DREPTURILE REZERVATE</p>
       </div>
@@ -44,8 +43,8 @@ export function SiteFooter() {
           <img src={salPictogram} alt="Pictograma oficială ANPC S.A.L." className="max-h-42 max-w-180 object-contain" />
          
         </a>
-        <a href="https://consumer-redress.ec.europa.eu/solution-finder_en" target="_blank" rel="noopener noreferrer" className="block h-[42px] w-[180px] overflow-hidden rounded-lg transition-transform hover:-translate-y-1 active:translate-y-0.5" aria-label="Deschide portalul oficial al Comisiei Europene pentru soluționarea online a litigiilor">
-          <img src={europeanCommissionLogo} alt="" className="h-full w-full object-cover" />
+        <a href="https://www.anpc.ro/sol/" target="_blank" rel="noopener noreferrer" className="flex h-14 items-center  transition-transform hover:-translate-y-1 active:translate-y-0.5" aria-label="Deschide pagina oficială ANPC despre soluționarea online a litigiilor">
+          <img src={solPictogram} alt="Pictograma oficială ANPC S.O.L." className="max-h-full max-w-auto object-contain" />
         </a>
       </div>
     </div>

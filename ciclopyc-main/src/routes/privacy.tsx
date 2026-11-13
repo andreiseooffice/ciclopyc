@@ -1,11 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { SiteFooter } from "@/components/site-footer";
 
+import { SiteFooter } from "@/components/site-footer";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Home } from "lucide-react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Politica de confidențialitate — CICLOPYC" },
-      { name: "description", content: "Informații despre datele personale, stocarea locală și serviciile terțe folosite de CICLOPYC." },
+      { name: "description", content: "Datele colectate prin formular, serviciile care le procesează și opțiunile de confidențialitate CICLOPYC." },
     ],
   }),
   component: Privacy,
@@ -15,45 +18,68 @@ function Privacy() {
   return <>
     <main className="min-h-screen bg-background text-foreground">
       <section className="section-shell max-w-5xl pt-28">
+        <Link to="/">
+          <Button variant="outline" className="mb-8 -ml-3 rounded-xl text-xs"><Home /> Acasă</Button>
+        </Link>
         <p className="eyebrow">INFORMAȚII LEGALE</p>
         <h1 className="mt-4 font-display text-4xl font-bold md:text-6xl">Politica de confidențialitate</h1>
-        <p className="mt-5 text-sm text-muted-foreground">Ultima actualizare: 1 octombrie 2026</p>
-        <div role="note" className="mt-8 rounded-xl border border-primary/40 bg-card p-5 text-sm leading-6">
-          <strong>Informare incompletă.</strong> Datele de identificare și contact ale operatorului au fost omise. Această pagină nu este o informare GDPR completă pentru publicare și necesită verificare juridică.
-        </div>
+        <p className="mt-5 text-sm text-muted-foreground">Ultima actualizare: 12 noiembrie 2026</p>
+       
 
         <div className="mt-10 space-y-10 text-sm leading-7 text-muted-foreground">
           <section>
             <h2 className="font-display text-2xl font-semibold text-foreground">1. Ce date prelucrăm și de ce</h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5">
-              <li><strong className="text-foreground">Mesaje și solicitări:</strong> dacă alegi să ne contactezi prin e-mail, datele pe care le incluzi sunt trimise din aplicația ta de e-mail către noi. Formularele acestui site deschid aplicația de e-mail și nu transmit mesajul către un server al site-ului.</li>
-              <li><strong className="text-foreground">Preferința de consimțământ:</strong> opțiunile cookie sunt salvate în stocarea locală a browserului, pentru a reține alegerea ta. Poți șterge această stocare din setările browserului sau poți schimba alegerea din „Setări cookie-uri”.</li>
-              <li><strong className="text-foreground">Date tehnice:</strong> furnizorul de găzduire poate înregistra date tehnice precum adresa IP, data solicitării și informații despre browser, pentru livrarea și securizarea site-ului. Furnizor: <strong className="text-foreground">[numele și politica furnizorului de găzduire]</strong>; perioadă de păstrare: <strong className="text-foreground">[perioada confirmată de furnizor]</strong>.</li>
-              <li><strong className="text-foreground">Fonturi web:</strong> fonturile sunt găzduite pe același domeniu cu site-ul, astfel încât pagina nu solicită fonturi de la un furnizor extern.</li>
-              <li><strong className="text-foreground">Legături externe:</strong> dacă deschizi WhatsApp, Instagram, TikTok sau alte site-uri externe, furnizorul respectiv prelucrează date conform propriei politici. Legăturile nu transmit date către acești furnizori până când nu le accesezi.</li>
-            </ul>
+            <p className="mt-3">CICLOPYC este brandul sub care sunt prezentate servicii digitale. Operatorul datelor personale este Grigoraș Andrei, care poate fi contactat la office.andrei.seo@gmail.com.</p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-semibold text-foreground">2. Temeiuri și destinatari</h2>
-            <p className="mt-3">Solicitările sunt folosite pentru a răspunde cererii tale și, când este cazul, pentru măsuri precontractuale sau executarea contractului. Securitatea și funcționarea serviciului pot avea la bază interesul legitim al operatorului. Orice analiză sau publicitate opțională trebuie să rămână dezactivată până la acordul tău prealabil; în versiunea actuală nu sunt instalate servicii de analiză sau publicitate. Destinatari: furnizorul de găzduire <strong className="text-foreground">[de completat]</strong> și furnizorii pe care alegi să îi contactezi prin linkurile externe, după caz.</p>
-            <p className="mt-3">Transferurile în afara Spațiului Economic European pot apărea prin serviciile terțe menționate. Pentru fiecare transfer, operatorul trebuie să confirme mecanismul și garanțiile aplicabile înainte de publicare.</p>
+            <h2 className="font-display text-2xl font-semibold text-foreground">2. Ce date colectăm</h2>
+            <p className="mt-3">Formularul colectează obligatoriu numele (maximum 100 de caractere), numărul de telefon (maximum 30 de caractere) și un interval de buget: 300€ — 500€, 500€ — 700€, 700€ — 1.000€ sau peste 1.000€. Adresa website-ului actual este opțională și are o limită de 255 de caractere. Formularul nu cere o adresă de e-mail și nu include un câmp pentru mesaj liber. Un câmp tehnic ascuns este folosit doar ca măsură anti-spam; dacă este completat, solicitarea este respinsă și nu este trimisă.</p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-semibold text-foreground">3. Păstrarea datelor</h2>
-            <p className="mt-3">Preferința de consimțământ rămâne în browser cel mult 6 luni, cu excepția cazului în care o modifici sau ștergi mai devreme datele locale. Mesajele primite prin e-mail sunt păstrate atât cât este necesar pentru gestionarea solicitării și, dacă se încheie un contract, potrivit obligațiilor legale aplicabile. Completează perioada concretă pentru solicitările fără contract: <strong className="text-foreground">[perioada și criteriul de ștergere]</strong>.</p>
+            <h2 className="font-display text-2xl font-semibold text-foreground">3. Scopul prelucrării</h2>
+            <p className="mt-3">Datele din formular sunt folosite pentru a evalua solicitarea, a analiza website-ul indicat și a contacta persoana la numărul furnizat în legătură cu serviciile cerute. Nu folosim aceste date pentru profilare sau publicitate.</p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-semibold text-foreground">4. Drepturile tale</h2>
-            <p className="mt-3">În condițiile GDPR, poți solicita accesul la date, rectificarea, ștergerea, restricționarea prelucrării, portabilitatea, te poți opune prelucrării sau îți poți retrage consimțământul. Poți depune o plângere la <a href="https://www.dataprotection.ro/" target="_blank" rel="noopener noreferrer" className="text-foreground underline">ANSPDCP</a>. Pentru exercitarea drepturilor, folosește canalul de contact publicat pe site. Operatorul trebuie să verifice identitatea solicitantului și să răspundă în termenul prevăzut de lege.</p>
+            <h2 className="font-display text-2xl font-semibold text-foreground">4. Temeiul prelucrării</h2>
+            <p className="mt-3">Datele sunt prelucrate pentru a răspunde solicitării și, după caz, pentru demersuri precontractuale la cererea persoanei vizate. Datele a căror păstrare este impusă de lege pot fi păstrate pe durata obligatorie.</p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-semibold text-foreground">5. Cookie-uri și tehnologii similare</h2>
-            <p className="mt-3">În prezent, site-ul nu utilizează cookie-uri de analiză sau publicitate. Panoul de consimțământ salvează preferințele în stocarea locală a browserului, iar serviciile opționale nu se activează automat. Unele funcții tehnice pot utiliza stocare strict necesară. Orice instrument nou de analiză sau publicitate trebuie adăugat numai după actualizarea acestei politici și obținerea consimțământului prealabil, acolo unde este cerut.</p>
+            <h2 className="font-display text-2xl font-semibold text-foreground">5. Stocarea și destinatarii datelor</h2>
+            <p className="mt-3">La trimitere, numele, telefonul, URL-ul completat și bugetul sunt transmise prin conexiune securizată către Web3Forms, serviciul folosit pentru livrarea formularelor, apoi sunt trimise la adresa de e-mail a operatorului, găzduită de Gmail. Web3Forms și Google pot prelucra aceste date și metadate tehnice necesare transmiterii și prevenirii abuzurilor, conform propriilor politici.
+
+Site-ul este găzduit momentan pe Render, iar infrastructura se poate modifica ulterior. Furnizorul de găzduire procesează date tehnice obișnuite ale conexiunii, precum adresa IP, data și ora solicitării și informații despre browser, în jurnalele operaționale și de securitate. În previzualizarea Lovable, când mecanismul de raportare este disponibil, erorile runtime pot transmite către Lovable mesajul erorii, calea paginii și stack-ul, pentru diagnostic; acestea nu sunt colectate prin formular și nu sunt trimise la fiecare vizită. Datele personale nu sunt vândute. Linkurile către telefon, e-mail, WhatsApp și rețele sociale deschid servicii externe; datele comunicate prin acestea sunt prelucrate de furnizorii respectivi, nu prin formularul site-ului.</p>
           </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-semibold text-foreground">6. Perioada de păstrare</h2>
+            <p className="mt-3">Solicitările care nu duc la o colaborare sunt păstrate, în mod obișnuit, cel mult 3 luni, după care sunt șterse, cu excepția cazurilor în care păstrarea este necesară pentru respectarea obligațiilor legale sau soluționarea unor pretenții.
+
+Dacă se încheie o colaborare, anumite date pot fi păstrate pentru perioada impusă de lege.</p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-semibold text-foreground">7. Drepturile persoanelor vizate</h2>
+            <p className="mt-3">În condițiile legislației aplicabile, persoanele vizate pot solicita accesul la date, rectificarea, ștergerea sau restricționarea prelucrării și pot exercita dreptul de opoziție, atunci când este aplicabil.
+
+Solicitările pot fi transmise la office.andrei.seo@gmail.com. Există, de asemenea, dreptul de a depune o plângere la autoritatea competentă pentru protecția datelor.
+
+</p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-semibold text-foreground">8. Cookie-uri și stocare locală</h2>
+            <p className="mt-3">Bannerul de confidențialitate salvează în memoria locală a browserului (localStorage) opțiunile pentru categorii strict necesare, preferințe, analiză și marketing, împreună cu data salvării. Alegerea expiră după 180 de zile. Componenta bannerului nu creează cookie-uri. În prezent site-ul nu încarcă servicii de analiză a traficului sau de publicitate, chiar dacă o categorie opțională este selectată.</p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-semibold text-foreground">9. Actualizări</h2>
+            <p className="mt-3">Politica poate fi actualizată atunci când se modifică site-ul, serviciile sau modul de prelucrare a datelor. Versiunea actuală va fi publicată pe această pagină.</p>
+          </section>
+
         </div>
       </section>
     </main>

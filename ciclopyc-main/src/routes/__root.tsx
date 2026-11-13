@@ -6,8 +6,10 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieConsent } from "@/components/cookie-consent";
 
@@ -119,6 +121,18 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const reducedMotion = useReducedMotion();
+  const previousPath = useRef(pathname);
+  const [routeLoading, setRouteLoading] = useState(false);
+
+  useEffect(() => {
+    if (previousPath.current === pathname) return;
+    previousPath.current = pathname;
+    setRouteLoading(true);
+    const timer = window.setTimeout(() => setRouteLoading(false), reducedMotion ? 180 : 760);
+    return () => window.clearTimeout(timer);
+  }, [pathname, reducedMotion]);
 
   useEffect(() => {
     const preventWheelZoom = (event: WheelEvent) => {
@@ -145,6 +159,30 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <AnimatePresence initial={false}>
+        {routeLoading && (
+          <motion.div
+            key={pathname}
+            role="status"
+            aria-label="Se încarcă pagina"
+            className="route-loading-screen fixed inset-0 z-[120] grid place-content-center justify-items-center gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reducedMotion ? 0.08 : 0.2, ease: "easeInOut" }}
+          >
+            <motion.span
+              aria-hidden="true"
+              className="route-loading-orbit"
+              animate={reducedMotion ? { rotate: 0 } : { rotate: 360 }}
+              transition={{ duration: 1.1, repeat: Infinity, ease: "linear" }}
+            >
+              <span />
+            </motion.span>
+            <span className="route-loading-wordmark">CICLOPYC</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <CookieConsent />
       <Toaster position="bottom-right" richColors />
     </QueryClientProvider>

@@ -69,7 +69,7 @@ function Portofoliu() {
 
         <div className="mt-14 grid gap-8">
           {liveProjects.map((project, index) => (
-            <motion.article key={project.name} initial={{ opacity: 0, y: 64, scale: .92, rotateX: 8 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -12, scale: 1.015, rotateZ: index % 2 ? .35 : -.35 }} whileTap={{ y: 2, scale: .99 }} viewport={{ once: true, margin: "-60px" }} transition={{ delay: index * 0.16, duration: .95, ease: "easeOut" }} style={{ transformPerspective: 1100 }} className="group tactile-card overflow-hidden rounded-3xl border border-border bg-card">
+            <motion.article key={project.name} initial={{ opacity: 0, y: 64, scale: .92, rotateX: 8 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -12, scale: 1.015, rotateZ: index % 2 ? .35 : -.35 }} whileTap={{ y: 8, scale: .94 }} viewport={{ once: true, margin: "-60px" }} transition={{ delay: index * 0.16, duration: .95, ease: "easeOut" }} style={{ transformPerspective: 1100 }} className="group tactile-card overflow-hidden rounded-3xl border border-border bg-card">
               <div className="grid lg:grid-cols-[1.1fr_.9fr]">
                 <div className="project-art min-h-[280px] lg:min-h-[420px]">
                   <img src={project.image} alt={`Site-ul ${project.name}`} loading="lazy" width={1536} height={1024} />

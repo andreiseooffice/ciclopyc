@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site-footer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import commerceImage from "@/assets/portfolio-commerce.jpg";
-import fintechImage from "@/assets/portfolio-fintech.jpg";
-import saasImage from "@/assets/portfolio-saas.jpg";
+import edenImage from "@/assets/eden-restaurant.jpg";
+import noirImage from "@/assets/noir-salon.jpg";
+import hotelImage from "@/assets/hotel-alvera.jpg";
 import maraAvatar from "@/assets/avatar-mara.jpg";
 import victorAvatar from "@/assets/avatar-victor.jpg";
 import dariaAvatar from "@/assets/avatar-daria.jpg";
@@ -35,9 +35,9 @@ const EMAIL = "office.andrei.seo@gmail.com";
 const CONTACT_PHONE = "+40752927479";
 const nav: Array<[string, string]> = [["Acasă", "home"], ["Portofoliu", "portofoliu"], ["Blog", "blog"], ["Statistici", "stats"], ["Recenzii", "reviews"], ["Modele", "shop"], ["FAQ", "faq"], ["Contact", "contact"]];
 const projects = [
-  { category: "HORECA", title: "EDEN / Restaurant", copy: "Imaginea online a restaurantului EDEN: meniu digital, rezervări, galerie foto și alte caracteristici orientate către conversii și promovare.", image: commerceImage, number: "01", loadSeconds: 0.8, durationDays: 10, priceEuros: 480 },
-  { category: "BEAUTY SALON", title: "NOIR NAIL / Salon", copy: "O platformă cu automatizare integrată, care transformă programările într-un lucru simplu pentru clienți. Intri, selectezi serviciul, te programezi și gata.", image: fintechImage, number: "02", loadSeconds: 0.7, durationDays: 14, priceEuros: 650 },
-  { category: "REGIM HOTELIER", title: "ALVERA / Hotel", copy: "Pagina de prezentare de care are nevoie orice hotel sau pensiune. Rezervări, detalii cazare, conversie clienți, ușor de folosit dar greu de ignorat.", image: saasImage, number: "03", loadSeconds: 0.9, durationDays: 18, priceEuros: 820 },
+  { category: "HORECA", title: "EDEN / Restaurant", copy: "Imaginea online a restaurantului EDEN: meniu digital, rezervări, galerie foto și alte caracteristici orientate către conversii și promovare.", image: edenImage, number: "01", loadSeconds: 0.8, durationDays: 10, priceEuros: 480 },
+  { category: "BEAUTY SALON", title: "NOIR NAIL / Salon", copy: "O platformă cu automatizare integrată, care transformă programările într-un lucru simplu pentru clienți. Intri, selectezi serviciul, te programezi și gata.", image: noirImage, number: "02", loadSeconds: 0.7, durationDays: 14, priceEuros: 650 },
+  { category: "REGIM HOTELIER", title: "ALVERA / Hotel", copy: "Pagina de prezentare de care are nevoie orice hotel sau pensiune. Rezervări, detalii cazare, conversie clienți, ușor de folosit dar greu de ignorat.", image: hotelImage, number: "03", loadSeconds: 0.9, durationDays: 18, priceEuros: 820 },
 ];
 const testimonials = [
   { quote: "CICLOPYC a transformat complet felul în care suntem percepuți. Conversiile au crescut din prima lună.", name: "Elena Mitu", role: "Founder Nail Noir", avatar: maraAvatar },
@@ -124,6 +124,19 @@ function IntroLoader({ progress, done }: { progress: MotionValue<number>; done: 
         </motion.span>
         <motion.span className="text-[11px] font-bold tabular-nums">{label}</motion.span>
       </motion.div>
+    </div>
+  );
+}
+
+function BinaryRain() {
+  const bits = "011010010110".repeat(4).split("").join("\n");
+  return (
+    <div className="binary-rain" aria-hidden="true">
+      {Array.from({ length: 14 }, (_, index) => (
+        <span key={index} className="binary-column" style={{ animationDelay: `${-index * 1.25}s` }}>
+          {bits}
+        </span>
+      ))}
     </div>
   );
 }
@@ -310,7 +323,7 @@ function Index() {
     const data = new FormData(form);
     if (data.get("botcheck")) return; // honeypot anti-spam
     const name = String(data.get("name") ?? "").slice(0, 100);
-    const email = String(data.get("email") ?? "").slice(0, 255);
+    const phone = String(data.get("phone") ?? "").slice(0, 30);
     const url = String(data.get("url") ?? "").slice(0, 255);
     const budget = String(data.get("budget") ?? "");
 
@@ -324,7 +337,7 @@ function Index() {
           subject: `Audit Web Gratuit — ${name}`,
           from_name: "CICLOPYC · Audit",
           name,
-          email,
+          phone,
           "Site actual": url.trim() || "Nu are site",
           Buget: budget,
         }),
@@ -352,9 +365,9 @@ function Index() {
         <div className="hidden items-center gap-1 rounded-xl border border-border bg-card p-1.5 shadow-sm md:flex">
           {["Portofoliu", "Blog", "Modele", "Contact"].map((label) => {
             const id = label === "Portofoliu" ? "portofoliu" : label === "Blog" ? "blog" : label === "Modele" ? "shop" : "footer";
-            return <motion.button key={label} whileHover={{ y: -2 }} whileTap={{ scale: .96 }} onClick={() => { if (id === "portofoliu") navigate({ to: "/portofoliu" }); else if (id === "blog") navigate({ to: "/blog" }); else scrollTo(id); }} className="rounded-xl px-4 py-2.5 text-xs font-bold text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">{label}</motion.button>;
+            return <motion.button key={label} whileHover={{ y: -2 }} whileTap={{ y: 4, scale: .9 }} onClick={() => { if (id === "portofoliu") navigate({ to: "/portofoliu" }); else if (id === "blog") navigate({ to: "/blog" }); else scrollTo(id); }} className="rounded-xl px-4 py-2.5 text-xs font-bold text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">{label}</motion.button>;
           })}
-          <motion.button whileHover={{ y: -2 }} whileTap={{ scale: .96 }} onClick={() => scrollTo("contact")} className="rounded-lg bg-primary px-4 py-2.5 text-xs font-bold text-primary-foreground transition-colors hover:bg-primary/90">Hai să vorbim</motion.button>
+          <motion.button whileHover={{ y: -2 }} whileTap={{ y: 4, scale: .9 }} onClick={() => scrollTo("contact")} className="rounded-lg bg-primary px-4 py-2.5 text-xs font-bold text-primary-foreground transition-colors hover:bg-primary/90">Hai să vorbim</motion.button>
         </div>
         <div className="md:hidden">
           <MenuButton open={menuOpen} onToggle={() => setMenuOpen((open) => !open)} />
@@ -371,8 +384,9 @@ function Index() {
       </AnimatePresence>
 
       <section className="relative min-h-screen overflow-hidden">
-        <img src={serviceModels[0].detailImage} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-center" />
-        <div className="absolute inset-0 bg-white/74" />
+        <img src={serviceModels[0].image} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-center" />
+        <div className="absolute inset-0 bg-white/64" />
+        <BinaryRain />
         <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col px-5 pb-6 pt-8 md:px-8 md:pb-8 md:pt-10 lg:pt-12">
           <div className="h-[3.75rem] md:h-24" aria-hidden="true" />
           <h1 ref={logoRef} aria-label="CICLOPYC" style={{ opacity: 0 }} className={`absolute left-5 top-8 font-display text-6xl font-black leading-none text-foreground will-change-transform md:left-8 md:top-10 md:text-8xl ${introDone ? "z-10" : "z-[110]"}`}>CICL<CyclopsEye />PYC</h1>
@@ -396,7 +410,7 @@ function Index() {
       <section id="portfolio" className="section-shell">
         <SectionHead eyebrow="01 / STATISTICI" title="Proiecte selectate" copy="Site-uri live și concepte realizate de noi. Cursivitate, performanță și securitate de top într-un singur loc." />
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {projects.map((item, index) => <motion.article key={item.title} initial={{ opacity: 0, y: 54, scale: .92, rotateX: 7 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -12, scale: 1.025, rotateZ: index === 1 ? 0 : index === 0 ? -.35 : .35 }} whileTap={{ y: 2, scale: .985 }} viewport={{ once: true, margin: "-60px" }} transition={{ delay: index * .14, duration: .9, ease: "easeOut" }} style={{ transformPerspective: 1000 }} className="tactile-card group overflow-hidden rounded-2xl border border-border bg-card">
+          {projects.map((item, index) => <motion.article key={item.title} initial={{ opacity: 0, y: 54, scale: .92, rotateX: 7 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -12, scale: 1.025, rotateZ: index === 1 ? 0 : index === 0 ? -.35 : .35 }} whileTap={{ y: 8, scale: .94 }} viewport={{ once: true, margin: "-60px" }} transition={{ delay: index * .14, duration: .9, ease: "easeOut" }} style={{ transformPerspective: 1000 }} className="tactile-card group overflow-hidden rounded-2xl border border-border bg-card">
             <div className="project-art"><img src={item.image} alt={`Previzualizare ${item.title}`} loading="lazy" /><span className="project-number">{item.number}</span><div className="mock-window"><div className="mock-top"><i /><i /><i /></div><div className="mock-photo"><img src={item.image} alt="" /></div></div></div>
             <div className="p-6"><p className="text-[10px] font-bold text-primary">{item.category}</p><h3 className="mt-2 font-display text-2xl font-semibold">{item.title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{item.copy}</p><Button variant="ghost" className="mt-5 -ml-3 rounded-xl text-xs" onClick={() => setProject(item)}>Vezi proiectul <ArrowUpRight /></Button></div>
           </motion.article>)}
@@ -415,13 +429,33 @@ function Index() {
       <section id="reviews" className="section-shell">
         <SectionHead eyebrow="02 / FEEDBACK" title="Reviews" copy="Numbers speak louder. Părerile celor pe care am avut plăcerea să-i ajutăm." />
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {testimonials.map(({ quote, name, role, avatar }, index) => <motion.article key={name} tabIndex={0} initial={{ opacity: 0, y: 48, scale: .94, rotateY: index % 2 ? 7 : -7 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }} whileHover={{ y: -10, scale: 1.025 }} whileTap={{ scale: .99 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: index * .16, duration: .85, ease: "easeOut" }} style={{ transformPerspective: 900 }} className="tactile-card rounded-2xl border border-border bg-card p-6"><div className="mb-6 flex gap-1 text-signal">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3 fill-current" />)}</div><p className="text-lg leading-7">„{quote}”</p><div className="mt-8 flex items-center gap-3 border-t border-border pt-5"><img src={avatar} alt={`Portret ${name}`} loading="lazy" className="size-10 rounded-full object-cover" /><div><p className="text-sm font-semibold">{name}</p><p className="text-xs text-muted-foreground">{role}</p></div></div></motion.article>)}
+          {testimonials.map(({ quote, name, role, avatar }, index) => <motion.article key={name} tabIndex={0} initial={{ opacity: 0, y: 48, scale: .94, rotateY: index % 2 ? 7 : -7 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }} whileHover={{ y: -10, scale: 1.025 }} whileTap={{ y: 6, scale: .94 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: index * .16, duration: .85, ease: "easeOut" }} style={{ transformPerspective: 900 }} className="tactile-card rounded-2xl border border-border bg-card p-6"><div className="mb-6 flex gap-1 text-signal">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3 fill-current" />)}</div><p className="text-lg leading-7">„{quote}”</p><div className="mt-8 flex items-center gap-3 border-t border-border pt-5"><img src={avatar} alt={`Portret ${name}`} loading="lazy" className="size-10 rounded-full object-cover" /><div><p className="text-sm font-semibold">{name}</p><p className="text-xs text-muted-foreground">{role}</p></div></div></motion.article>)}
         </div>
       </section>
 
-      <section id="shop" className="border-y border-border bg-surface py-24">
-          <div className="mx-auto max-w-7xl px-5 md:px-8"><SectionHead eyebrow="03 / CE FACEM" title="Servicii software" copy="Nu e suficient ca un website să arate doar bine. Construim platforme care te fac vizibil online, performante și securizate la un nivel înalt." />
-          <div className="service-grid mt-12 grid gap-6 lg:grid-cols-3">{serviceModels.map((item, index) => <Link key={item.slug} to="/modele/$slug" params={{ slug: item.slug }} className="service-card-link group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"><motion.article initial={{ opacity: 0, y: 70, scale: .88, rotateX: 12 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -14, scale: 1.035, rotateZ: index === 1 ? 0 : index === 0 ? -.6 : .6 }} whileTap={{ y: 2, scale: .985 }} viewport={{ once: true, margin: "-70px" }} transition={{ delay: index * .18, duration: 1.05, ease: "easeOut" }} style={{ transformPerspective: 1100 }} className="service-card tactile-card flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors group-hover:border-signal/60"><div className="template-visual"><img src={item.image} alt={`Exemplu pentru ${item.name}`} loading="lazy" /><span>0{index + 1} / {item.type}</span></div><div className="flex flex-1 flex-col p-6"><p className="eyebrow">{item.category}</p><h3 className="mt-3 font-display text-2xl font-semibold">{item.name}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{item.summary}</p><ul className="mt-6 space-y-3">{item.cardFeatures.map((feature) => <li key={feature} className="flex items-start gap-3 text-sm"><Check className="mt-0.5 size-4 shrink-0 text-signal" />{feature}</li>)}</ul></div></motion.article></Link>)}</div>
+      <section id="shop" className="service-list-section border-y border-border bg-surface py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHead eyebrow="03 / CE FACEM" title="Servicii software" copy="Nu e suficient ca un website să arate doar bine. Construim platforme care te fac vizibil online, performante și securizate la un nivel înalt." />
+          <div className="home-service-list mt-12 border-y border-border">
+            {serviceModels.map((item, index) => (
+              <Link key={item.slug} to="/modele/$slug" params={{ slug: item.slug }} className="home-service-link group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal">
+                <motion.article initial={{ opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ backgroundColor: "rgba(255,255,255,.55)" }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: index * 0.1, duration: 0.65 }} className="home-service-row grid items-center gap-0 border-b border-border last:border-0 lg:grid-cols-2">
+                  <div className={`home-service-image home-service-image-${item.slug} relative min-h-[260px] overflow-hidden md:min-h-[380px]`}>
+                    <img src={item.image} alt={item.imageAlt} loading="lazy" className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" />
+                  </div>
+                  <div className="home-service-copy flex flex-col justify-center px-1 py-8 md:px-10 md:py-12 lg:px-14">
+                    <p className="eyebrow">{item.category}</p>
+                    <h3 className="mt-3 font-editorial text-4xl font-normal md:text-6xl">{item.name}</h3>
+                    <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground md:text-base">{item.summary}</p>
+                    <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                      {item.cardFeatures.map((feature) => <li key={feature} className="flex items-start gap-2 text-xs font-semibold leading-5"><Check className="mt-0.5 size-4 shrink-0 text-signal" />{feature}</li>)}
+                    </ul>
+                    <span className="home-service-action mt-7 inline-flex w-fit items-center gap-2 border-b border-current pb-1 text-sm font-bold">Descoperă serviciul <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></span>
+                  </div>
+                </motion.article>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -435,7 +469,7 @@ function Index() {
             <form onSubmit={submitAudit} className="grid gap-4 rounded-2xl border border-border bg-background/70 p-5 backdrop-blur-xl sm:grid-cols-2">
               <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
               <label className="field-label">Nume<input required name="name" maxLength={100} placeholder="Numele tău" className="field" /></label>
-              <label className="field-label">Email<input required name="email" type="email" maxLength={255} placeholder="email@companie.ro" className="field" /></label>
+              <label className="field-label">Număr de telefon<input required name="phone" type="tel" maxLength={30} autoComplete="tel" placeholder="+40 7xx xxx xxx" className="field" /></label>
               <label className="field-label sm:col-span-2">URL site actual <span className="text-[10px] font-medium normal-case text-muted-foreground">(opțional)</span><input name="url" type="url" maxLength={255} placeholder="https:// — dacă ai deja un site" className="field" /></label>
               <label className="field-label sm:col-span-2">Buget estimat<select required name="budget" defaultValue="" className="field"><option value="" disabled>Alege un interval</option><option>300€ — 500€</option><option>500€ — 700€</option><option>700€ — 1.000€</option><option>Peste 1.000€</option></select></label>
               <Button type="submit" disabled={sending} className="mt-2 h-12 rounded-xl bg-primary font-bold text-primary-foreground shadow-sm hover:bg-primary/90 disabled:opacity-60 sm:col-span-2">{sending ? "Se trimite..." : <>Cere audit <ArrowUpRight /></>}</Button>

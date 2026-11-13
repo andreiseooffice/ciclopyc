@@ -1,6 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteFooter } from "@/components/site-footer";
-
+import { ArrowUpRight, Check, Clock3, Home } from "lucide-react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
@@ -15,51 +17,80 @@ function Terms() {
   return <>
     <main className="min-h-screen bg-background text-foreground">
       <section className="section-shell max-w-5xl pt-28">
+        <Link to="/">
+                    <Button variant="outline" className="-ml-3 mb-16 rounded-xl text-xs"><Home /> Acasă</Button>
+                  </Link>
         <p className="eyebrow">INFORMAȚII LEGALE</p>
         <h1 className="mt-4 font-display text-4xl font-bold md:text-6xl">Termeni și condiții</h1>
-        <p className="mt-5 text-sm text-muted-foreground">Ultima actualizare: 1 octombrie 2026</p>
-        <div role="note" className="mt-8 rounded-xl border border-primary/40 bg-card p-5 text-sm leading-6">
-          <strong>Informare incompletă.</strong> Datele de identificare și contact ale furnizorului au fost omise. Acești termeni nu sunt compleți pentru publicare și trebuie verificați juridic înainte de a fi folosiți pentru contractarea cu consumatori.
-        </div>
+        <p className="mt-5 text-sm text-muted-foreground">Ultima actualizare: 11 octombrie 2026</p>
+        
 
         <div className="mt-10 space-y-10 text-sm leading-7 text-muted-foreground">
           <section>
-            <h2 className="font-display text-2xl font-semibold text-foreground">1. Domeniu</h2>
-            <p className="mt-3">Acești termeni se aplică navigării site-ului și solicitărilor de ofertă. Prestarea efectivă a serviciilor este guvernată de oferta și contractul acceptate de părți. Dacă o clauză de aici intră în conflict cu o ofertă semnată, documentul contractual specific prevalează în măsura permisă de lege.</p>
+            <h2 className="font-display text-2xl font-semibold text-foreground">1. Dispoziții generale</h2>
+            <p className="mt-3">CICLOPYC este un brand sub care sunt prezentate servicii de web design, dezvoltare web, magazine online, SEO, implementări AI, automatizări, integrări API, mentenanță și consultanță digitală.
+
+Site-ul este destinat exclusiv firmelor și persoanelor care solicită servicii în scop profesional. Operatorul site-ului poate fi contactat la office.andrei.seo@gmail.com. </p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-semibold text-foreground">2. Servicii, ofertă și preț</h2>
-            <p className="mt-3">Serviciile pot include design și dezvoltare web, configurare, integrare, mentenanță sau produse digitale. Conținutul livrabilelor, prețul, moneda, taxele aplicabile, calendarul, numărul de revizii, responsabilitatea pentru conținut și cerințele tehnice se stabilesc în scris pentru fiecare proiect. Prețurile afișate ca exemple sau în portofoliu nu constituie o ofertă contractuală decât dacă sunt confirmate în oferta individuală.</p>
-            <p className="mt-3">Condiții de plată: <strong className="text-foreground">[avans, tranșe, scadențe, metode de plată și regimul TVA]</strong>. Termenul de livrare începe după îndeplinirea condițiilor definite în ofertă, inclusiv primirea materialelor și aprobărilor necesare.</p>
+            <h2 className="font-display text-2xl font-semibold text-foreground">2. Solicitări și contracte</h2>
+            <p className="mt-3">Formularul de pe site permite transmiterea unei solicitări de informații sau ofertă. Trimiterea formularului nu reprezintă o comandă și nu creează automat un contract.
+
+Serviciile, livrabilele, termenele, prețurile și condițiile de plată se stabilesc individual, prin oferta acceptată și/sau contractul aplicabil.</p>
+            
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-semibold text-foreground">3. Comenzi, cooperare și acceptanță</h2>
-            <p className="mt-3">O solicitare trimisă prin e-mail nu încheie singură un contract. Începerea proiectului, etapele de feedback, acceptarea livrabilelor și gestionarea întârzierilor se stabilesc în oferta sau contractul acceptat. Clientul răspunde pentru drepturile și legalitatea materialelor furnizate și pentru transmiterea la timp a informațiilor necesare.</p>
+            <h2 className="font-display text-2xl font-semibold text-foreground">3. Prețuri și plăți</h2>
+            <p className="mt-3">Prețurile comunicate sunt exprimate fără TVA, dacă nu se precizează altfel. Tratamentul fiscal și facturarea se realizează conform structurii contractuale și legislației aplicabile.
+
+Condițiile de plată, inclusiv eventualele avansuri, sunt stabilite pentru fiecare proiect. Predarea finală a livrabilelor se face după plata integrală, în condițiile convenite.</p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-semibold text-foreground">4. Drepturi de autor și licențe</h2>
-            <p className="mt-3">Drepturile asupra livrabilelor, momentul transferului sau acordării licenței, utilizarea lucrărilor în portofoliu și drepturile asupra instrumentelor, fonturilor ori componentelor terțe trebuie precizate în oferta sau contractul individual: <strong className="text-foreground">[completează regimul drepturilor și momentul transferului]</strong>. Niciun termen de aici nu transferă drepturi asupra materialelor terților pe care Furnizorul nu le deține.</p>
+            <h2 className="font-display text-2xl font-semibold text-foreground">4. Obligațiile clientului</h2>
+            <p className="mt-3">Clientul trebuie să furnizeze informații, materiale și accesuri corecte și să dețină drepturile necesare asupra materialelor transmise.
+
+Solicitările suplimentare sau modificările care depășesc scopul convenit pot implica termene și costuri suplimentare, stabilite de comun acord.</p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-semibold text-foreground">5. Consumatori, retragere și anulare</h2>
-            <p className="mt-3">Dacă un client este consumator, i se aplică drepturile imperative prevăzute de legislația privind protecția consumatorilor și contractele la distanță. Orice perioadă de retragere, excepție pentru conținut digital sau începerea prestării în perioada de retragere trebuie comunicată înainte de încheierea contractului și acceptată în forma cerută de lege. Nu se limitează prin acești termeni drepturile legale ale consumatorului.</p>
-            <p className="mt-3">Procedura concretă de retragere/anulare, adresa de notificare și formularul-model aplicabil: <strong className="text-foreground">[completează după stabilirea fluxului de vânzare și a tipului de client]</strong>. Pentru contractele dintre profesioniști, regulile de anulare se stabilesc în contractul individual.</p>
+            <h2 className="font-display text-2xl font-semibold text-foreground">5. Livrare și garanție</h2>
+            <p className="mt-3">Pentru erorile tehnice reproductibile cauzate direct de implementare se oferă o perioadă de remediere de 30 de zile de la livrare.
+
+Aceasta nu acoperă problemele cauzate de modificări efectuate de terți, utilizare necorespunzătoare, servicii externe sau modificări ale platformelor și API-urilor.</p>
+            
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-semibold text-foreground">6. Reclamații și soluționarea litigiilor</h2>
-            <p className="mt-3">Pentru o problemă legată de serviciu, folosește canalul de contact publicat pe site. Consumatorii pot consulta informațiile oficiale ANPC despre <a href="https://www.anpc.ro/sal/" target="_blank" rel="noopener noreferrer" className="text-foreground underline">soluționarea alternativă a litigiilor (S.A.L.)</a> și portalul oficial al Comisiei Europene pentru soluționarea litigiilor. Disponibilitatea unui organism ADR pentru un anumit litigiu depinde de competența și regulile acelui organism.</p>
-            <p className="mt-3">Legea aplicabilă: România, fără a aduce atingere normelor imperative de protecție a consumatorilor. Instanța competentă se stabilește potrivit normelor legale aplicabile.</p>
+            <h2 className="font-display text-2xl font-semibold text-foreground">6. Proprietate intelectuală</h2>
+            <p className="mt-3">După plata integrală, clientul dobândește drepturile convenite asupra livrabilelor personalizate, în limitele legii și ale licențelor aplicabile.
+
+Instrumentele proprii, componentele reutilizabile, metodele de lucru și know-how-ul preexistent rămân ale titularilor lor. Materialele și serviciile terților sunt supuse licențelor și condițiilor acestora.</p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-semibold text-foreground">7. Limitări și actualizări</h2>
-            <p className="mt-3">Nicio informație de pe site nu garantează un anumit nivel de vânzări, trafic sau poziționare în motoarele de căutare. Angajamentele concrete sunt numai cele incluse în oferta sau contractul acceptat. Termenii pot fi actualizați pentru viitor; versiunea aplicabilă unei comenzi este cea comunicată și acceptată la data încheierii contractului.</p>
+            <h2 className="font-display text-2xl font-semibold text-foreground">7. SEO, AI și servicii externe</h2>
+            <p className="mt-3">Nu se garantează poziții specifice în motoarele de căutare, un anumit nivel de trafic, vânzări, venituri sau rezultate exacte ale instrumentelor AI.
+
+Disponibilitatea și funcționarea platformelor, API-urilor și serviciilor externe pot depinde de factori care nu se află sub controlul CICLOPYC.</p>
           </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-semibold text-foreground">8. Utilizarea site-ului și răspunderea</h2>
+            <p className="mt-3">Utilizatorii nu pot folosi site-ul în scopuri ilegale sau pentru a afecta funcționarea acestuia ori drepturile altor persoane.
+
+În limitele permise de lege, nu se asumă răspunderea pentru pierderi cauzate exclusiv de factori externi și necontrolabili. Nicio prevedere nu exclude răspunderea care nu poate fi limitată legal.</p>
+          </section>
+
+<section>
+            <h2 className="font-display text-2xl font-semibold text-foreground">9. Legea aplicabilă și contact</h2>
+            <p className="mt-3">Termenii sunt interpretați în conformitate cu legislația română. Pentru întrebări privind site-ul și serviciile prezentate, ne poți contacta la office.andrei.seo@gmail.com.
+
+Acești termeni pot fi actualizați, iar versiunea curentă va fi publicată pe site.</p>
+          </section>
+
         </div>
       </section>
     </main>

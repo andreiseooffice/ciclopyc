@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowUpRight, Check, Clock3 } from "lucide-react";
+import { useState } from "react";
+import { ArrowLeft, ArrowUpRight, ChevronDown, Clock3 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site-footer";
@@ -24,6 +25,7 @@ export const Route = createFileRoute("/blog")({
 const articles = [
   {
     number: "01",
+    topic: "Situația actuală",
     category: "DIGITALIZARE",
     title: "De ce ai nevoie de un website?",
     image: websiteArticleImage,
@@ -39,6 +41,7 @@ const articles = [
   },
   {
     number: "02",
+    topic: "Software as a Service",
     category: "SaaS",
     title: "Ce înseamnă Software-as-a-Service?",
     image: investmentArticleImage,
@@ -55,6 +58,7 @@ const articles = [
   },
   {
     number: "03",
+    topic: "Despre noi",
     category: "CINE LIVREAZĂ",
     title: "Cine suntem și ce ne motivează",
     image: planningArticleImage,
@@ -72,6 +76,10 @@ const articles = [
 ];
 
 function Blog() {
+  const topics = ["Toate", ...articles.map((article) => article.topic)];
+  const [activeTopic, setActiveTopic] = useState("Toate");
+  const visibleArticles = activeTopic === "Toate" ? articles : articles.filter((article) => article.topic === activeTopic);
+
   return (
     <>
     <main className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
@@ -85,47 +93,56 @@ function Blog() {
             <h1 className="mt-5 font-editorial text-5xl font-normal leading-[.98] md:text-8xl">Un website bun este un website care <span className="text-signal">aduce clienți.</span></h1>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-muted-foreground">Ghiduri clare pentru cei care vor să înțeleagă mai bine ce cumpără, de ce au nevoie și cum își pot construi următorul pas online.</p>
           </motion.div>
-          <div className="mt-16 flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">
-            <span className="rounded-full border border-border bg-card/70 px-4 py-2">Situația actuală</span>
-            <span className="rounded-full border border-border bg-card/70 px-4 py-2">Software as a Service</span>
-            <span className="rounded-full border border-border bg-card/70 px-4 py-2">Despre noi</span>
+          <div className="blog-filters mt-16 flex flex-wrap gap-2" role="group" aria-label="Filtrează articolele">
+            {topics.map((topic) => (
+              <button key={topic} type="button" aria-pressed={activeTopic === topic} onClick={() => setActiveTopic(topic)} className={`blog-filter px-4 py-2.5 text-xs font-bold uppercase ${activeTopic === topic ? "is-active" : ""}`}>
+                {topic}
+              </button>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
         <div className="grid gap-8">
-          {articles.map((article, index) => (
-            <motion.article key={article.number} id={`articol-${article.number}`} initial={{ opacity: 0, y: 54, scale: .93, rotateX: 7 }} whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} whileHover={{ y: -9, scale: 1.012 }} whileTap={{ y: 2, scale: .99 }} viewport={{ once: true, margin: "-80px" }} transition={{ delay: index * 0.13, duration: .9, ease: "easeOut" }} style={{ transformPerspective: 1000 }} className="group tactile-card overflow-hidden rounded-xl border border-border bg-card">
-              <div className="grid lg:grid-cols-[.34fr_1fr]">
-                <div className="blog-photo relative flex min-h-[280px] overflow-hidden border-b border-border lg:min-h-full lg:border-b-0 lg:border-r">
+          {visibleArticles.map((article, index) => (
+            <motion.details key={article.number} id={`articol-${article.number}`} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -4 }} viewport={{ once: true, margin: "-60px" }} transition={{ delay: index * 0.1, duration: 0.65 }} className="blog-article group overflow-hidden border-y border-border bg-card">
+              <summary className="blog-summary grid lg:grid-cols-[.34fr_1fr]">
+                <div className="blog-photo relative flex min-h-[230px] overflow-hidden lg:min-h-[360px]">
                   <img src={article.image} alt={article.imageAlt} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
                   <div className="absolute inset-0 bg-black/15" />
-                  <div className="relative flex min-h-[280px] w-full flex-col justify-between p-6 md:p-8">
-                    <span className="grid size-12 place-items-center rounded-full bg-white font-display text-lg font-semibold text-foreground">{article.number}</span>
-                    <div className="w-fit rounded-md bg-white px-4 py-3 text-foreground">
+                  <div className="relative flex min-h-[230px] w-full flex-col justify-between p-5 md:p-7">
+                    <span className="grid size-12 place-items-center bg-white font-display text-lg font-semibold text-foreground">{article.number}</span>
+                    <div className="w-fit bg-white px-4 py-3 text-foreground">
                       <p className="text-[10px] font-bold text-signal">{article.category}</p>
                       <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground"><Clock3 className="size-3.5" />{article.readTime}</div>
                     </div>
                   </div>
                 </div>
-                <div className="p-7 md:p-10 lg:p-14">
-                  <h2 className="max-w-3xl font-editorial text-3xl font-normal leading-tight md:text-5xl">{article.title}</h2>
-                  <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{article.intro}</p>
-                  <div className="mt-10 grid gap-8 border-t border-border pt-10 md:grid-cols-2">
-                    {article.sections.map(([heading, copy]) => (
-                      <section key={heading}>
-                        <h3 className="font-display text-xl font-semibold">{heading}</h3>
-                        <p className="mt-3 text-sm leading-7 text-muted-foreground">{copy}</p>
-                      </section>
-                    ))}
-                  </div>
-                  <div className="mt-10 border-l-2 border-primary bg-background/60 p-5 md:p-6">
-                    <p className="text-sm font-semibold leading-7">{article.conclusion}</p>
-                  </div>
+                <div className="flex flex-col items-start justify-center p-6 md:p-10 lg:p-14">
+                  <p className="eyebrow">{article.topic}</p>
+                  <h2 className="mt-3 max-w-3xl font-editorial text-3xl font-normal leading-tight md:text-5xl">{article.title}</h2>
+                  <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground md:text-lg md:leading-8">{article.intro}</p>
+                  <span className="blog-read-action mt-7 inline-flex items-center gap-2 text-sm font-bold text-signal">
+                    <span className="blog-read-open">Citește articolul</span><span className="blog-read-close">Închide articolul</span>
+                    <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
+                  </span>
+                </div>
+              </summary>
+              <div className="blog-expanded px-6 pb-7 md:px-10 md:pb-10 lg:pl-[36%] lg:pr-14">
+                <div className="grid gap-8 border-t border-border pt-8 md:grid-cols-2">
+                  {article.sections.map(([heading, copy]) => (
+                    <section key={heading}>
+                      <h3 className="font-display text-xl font-semibold">{heading}</h3>
+                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{copy}</p>
+                    </section>
+                  ))}
+                </div>
+                <div className="mt-8 border-l-2 border-primary bg-background/60 p-5 md:p-6">
+                  <p className="text-sm font-semibold leading-7">{article.conclusion}</p>
                 </div>
               </div>
-            </motion.article>
+            </motion.details>
           ))}
         </div>
       </section>

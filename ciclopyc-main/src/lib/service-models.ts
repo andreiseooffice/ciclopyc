@@ -2,140 +2,140 @@ import websiteImage from "@/assets/unsplash-studio-workspace.jpg";
 import storeImage from "@/assets/unsplash-commerce-checkout.jpg";
 import automationImage from "@/assets/unsplash-team-automation.jpg";
 import websiteDetailImage from "@/assets/unsplash-website-editorial.jpg";
-import storeDetailImage from "@/assets/template-cafe.jpg";
 import automationDetailImage from "@/assets/unsplash-agency-investment.jpg";
 
 export const serviceModels = [
   {
     slug: "website",
     name: "Site Web",
-    type: "WEBSITE",
+    
     category: "PREZENȚĂ DIGITALĂ",
     image: websiteImage,
     imageAlt: "Spațiu de lucru luminos pentru proiectarea unui website",
     detailImage: websiteDetailImage,
     detailImageAlt: "Interfață de lucru pentru dezvoltarea unui website",
     summary:
-      "Construim site-uri performante și cursive care ghidează clientul direct către ofertă. De la proiecte simple de prezentare până la platforme complexe cu soluții de automatizare integrate.",
+      "Un website construit în jurul deciziei pe care vrei s-o ia clientul: să ceară o ofertă, să facă o programare sau să te contacteze.",
     description:
-      "Vrei să fii ușor de găsit pe internet? Un site de prezentare este soluția ideală. Primul lucru pe care îl face un client când are nevoie de serviciul tău este să dea un search rapid pe Google. Paginile de Tiktok, Facebook sau Instagram sunt utile pentru marketing, însă primul lucru care apare este website-ul.",
+      "Când cineva caută serviciul tău, are nevoie să înțeleagă rapid dacă ești alegerea potrivită și ce are de făcut mai departe. Construim un website care pune oferta în prim-plan, răspunde întrebărilor importante și transformă interesul într-un pas concret. Primești o prezență digitală proprie, cu structură, design și funcții alese după felul în care lucrează afacerea ta.",
     audience:
-      "Cu antreprenorii care vor să-și extindă afacerea și să simplifice munca pe care o fac deja. Cu cabinete, studiouri și branduri care depind prea mult de rețele sociale sau recomandări. Este structura ideală pentru orice afacere care depinde de recomandările prin viu grai sau de clienții cu vechime.",
+      "Pentru afaceri care au crescut din recomandări și sunt gata să fie găsite și de clienți noi. Pentru specialiști, clinici, studiouri și companii care vor să explice mai bine ce oferă, să-și prezinte serviciile profesionist și să nu depindă de o singură platformă socială.",
     promise:
-      "Internetul poate fi accesat de oricine. Adu-ți serviciul mai aproape de clienții tăi și de milioanele de utilizatori care folosesc zilnic Google.",
+      "Un punct de plecare clar pentru fiecare client: ce oferi, de ce să te aleagă și cum poate începe. Fără să-l pui să caute răspunsurile prin postări, mesaje și pagini disparate.",
     cardFeatures: [
-      "Structură și design personalizate",
-      "Optimizat pentru mobil",
-      "Formulare și trasee de contact",
+      "Mesaj și structură orientate spre acțiune",
+      "Design personalizat, pregătit pentru mobil",
+      "Contact simplu, măsurabil și funcțional",
     ],
     deliverables: [
-      "O structură de pagini stabilită după serviciile, publicul și obiectivul principal al afacerii.",
-      "Direcție vizuală și interfață adaptate identității brandului, nu un model copiat ca atare.",
-      "Textele și mesajele tale aranjate într-o ordine ușor de parcurs, cu loc pentru copywriting dacă este inclus în ofertă.",
-      "Pagini responsive, navigație clară și butoane de contact vizibile pe mobil și desktop.",
-      "Formulare, legături de apel sau alte funcții stabilite împreună înainte de lucru.",
-      "Configurare de bază pentru titluri, descrieri, partajare socială și indexare.",
-      "Verificare înainte de lansare, publicare și predarea acceselor convenite.",
+      "Arhitectura paginilor pornită de la serviciile profitabile, întrebările clienților și acțiunea principală pe care vrei s-o obții.",
+      "O direcție vizuală distinctă, aliniată brandului tău și construită să păstreze atenția pe ofertă.",
+      "Ierarhie de conținut care conduce vizitatorul de la problemă la soluție, diferențiatori și următorul pas.",
+      "Pagini rapide și responsive, cu navigare și butoane de contact ușor de folosit pe telefon.",
+      "Formulare, apelare directă, programări sau integrările agreate în ofertă, testate înainte de lansare.",
+      "Configurare tehnică de bază pentru titluri, descrieri, partajare și indexarea paginilor publice.",
+      "Verificări pe ecrane și browsere uzuale, publicare și predarea acceselor convenite.",
+      "O sesiune de predare ca să știi unde actualizezi conținutul și cum gestionezi solicitările primite.",
     ],
     process: [
       {
-        title: "Căutăm",
+        title: "Descoperim oportunitatea",
         detail:
-          "Clarificăm clienții tăi, oferta, materialele existente și ce scop va avea site-ul în afacerea ta.",
+          "Analizăm oferta, clienții pe care vrei să-i atragi și ce îi oprește astăzi să te contacteze.",
       },
       {
-        title: "Organizăm",
+        title: "Punem oferta în ordine",
         detail:
-          "Stabilim paginile, preferințele tale și mesajele care ajută vizitatorul să ia o decizie.",
+          "Definim paginile, mesajele, dovezile și traseul scurt de la prima vizită la solicitare.",
       },
       {
-        title: "Construim",
+        title: "Proiectăm și dezvoltăm",
         detail:
-          "Proiectăm și dezvoltăm website-ul, apoi integrăm conținutul și funcțiile stabilite.",
+          "Construim interfața și funcțiile stabilite, apoi integrăm conținutul și verificăm experiența cap-coadă.",
       },
       {
-        title: "Lansăm",
+        title: "Lansăm cu încredere",
         detail:
-          "Testăm pe ecrane diferite, corectăm detaliile și publicăm site-ul după aprobarea ta.",
+          "Facem ultimele verificări împreună, publicăm website-ul și îți predăm accesul și pașii de administrare.",
       },
     ],
     benefits: [
-      "Clienții înțeleg mai repede ce oferi și de ce să cumpere de la tine.",
-      "Un traseu simplu de la ofertă până la mesaj, apel sau programare.",
-      "Imagine și credibilitate pentru audiența nouă.",
-      "Performanță și viteză de încărcare pe mobil, tabletă și desktop.",
-      "O pagină proprie pe care o poți trimite în oferte, reclame și celor care vor să înțeleagă mai bine ce oferi.",
-      "O fundație pe care poți adăuga ulterior pagini, servicii sau reclame pentru afacerea ta.",
+      "Prezinți valoarea serviciilor înainte ca un client să fie nevoit să ceară explicații în privat.",
+      "Înlocuiești traseul fragmentat dintre social media, mesaje și documente cu o destinație clară pentru interesul clientului.",
+      "Îți prezinți experiența, procesul și diferențiatorii într-un mod coerent, la orice oră.",
+      "Faci contactul mai simplu prin apel, formular sau programare, în funcție de cum vinzi.",
+      "Ai o bază proprie pentru campanii, recomandări și căutări organice, fără să depinzi exclusiv de algoritmul unei platforme.",
+      "Poți extinde structura cu servicii, pagini de destinație și funcții noi pe măsură ce afacerea evoluează.",
     ],
     pricingIntro:
-      "Prețul depinde de dimensiunea proiectului, de funcțiile alese și de cerințele clienților noștri",
+      "Investiția se stabilește după ce știm ce trebuie să facă website-ul pentru afacerea ta. O prezentare compactă are alte cerințe decât un site cu mai multe servicii, programări și integrări. Primești o ofertă structurată pe livrabile și etape, astfel încât să poți vedea ce este esențial acum și ce poate fi adăugat ulterior.",
     pricingFactors: [
-      "Numărul și tipul paginilor",
-      "Copywriting, editarea și pregătirea imaginilor",
-      "Formulare, integrări și funcții speciale",
-      "Calendarul, feedbackul și suportul după lansare",
+      "Numărul de pagini și complexitatea traseelor de conversie",
+      "Pregătirea conținutului, imaginilor și materialelor de brand",
+      "Formulare, programări, CRM și integrările solicitate",
+      "Calendarul, rundele de feedback și nivelul de suport după lansare",
     ],
   },
   {
     slug: "magazin-online",
     name: "Magazin online",
-    type: "E-COMMERCE",
     category: "VÂNZARE ONLINE",
     image: storeImage,
-    imageAlt: "Plată cu cardul la un terminal pentru cumpărături online",
-    detailImage: storeDetailImage,
-    detailImageAlt: "Produse pregătite pentru prezentarea într-un magazin online",
+    imageAlt: "Căști audio fotografiate ca produs pentru un magazin online",
+    detailImage: storeImage,
+    detailImageAlt: "Fotografie de produs cu căști audio pe fundal galben",
     summary:
-      "Un magazin ușor de administrat, în care clienții găsesc produsul potrivit și pot comanda fără pași neclari.",
+      "Un magazin online care face produsele ușor de ales, comenzile ușor de plasat și administrarea mai puțin dependentă de mesaje manuale.",
     description:
-      "Primești un canal de vânzare organizat în jurul produselor tale, nu un catalog generic. Construim categoriile, paginile de produs, coșul și checkout-ul astfel încât clientul să știe ce cumpără, cât costă livrarea și ce urmează după comandă. Integrările se aleg împreună, în funcție de furnizorii pe care îi folosești și de procesele pe care vrei să le simplifici.",
+      "Un produs bun merită un proces de cumpărare la fel de bun. Construim magazinul în jurul modului în care clienții compară și aleg: catalog ușor de explorat, pagini de produs care răspund obiecțiilor și un checkout fără surprize despre preț, plată sau livrare. Conectăm furnizorii pe care îi folosești deja, acolo unde platformele și accesul tehnic permit, apoi testăm o comandă completă înainte de lansare.",
     audience:
-      "Pentru branduri care vând produse fizice sau digitale și vor să dețină mai bine experiența de cumpărare. Este potrivit dacă preiei comenzi manual, prezinți produsele doar pe social media sau ai nevoie de un catalog cu prețuri, variante și stocuri mai ușor de urmărit.",
+      "Pentru branduri care vor să transforme un catalog, comenzile din mesaje sau vânzările din social media într-un canal de comerț online pe care îl pot administra. Este potrivit când ai produse și cerere, dar clienții întâmpină dificultăți la alegere, iar echipa pierde timp confirmând manual detalii repetitive.",
     promise:
-      "Clientul poate descoperi produsele, înțelege opțiunile și trimite o comandă într-un flux coerent; tu primești un instrument mai clar pentru administrarea vânzărilor.",
+      "De la prima vizită la confirmarea comenzii, fiecare pas explică ce cumpără clientul și ce urmează. Tu păstrezi controlul asupra produselor, comenzilor și regulilor comerciale.",
     cardFeatures: [
-      "Catalog și pagini de produs",
-      "Flux de comandă adaptat",
-      "Plăți și livrare integrate",
+      "Catalog care ajută clientul să aleagă",
+      "Checkout clar, optimizat pentru mobil",
+      "Plăți, livrare și notificări conectate",
     ],
     deliverables: [
-      "Categorii și navigație organizate după felul în care clienții caută produsele.",
-      "Pagini de produs pentru imagini, descrieri, prețuri, variante și informații utile înainte de cumpărare.",
-      "Coș și checkout cu pașii și câmpurile de care afacerea are nevoie.",
-      "Configurarea procesatorului de plăți și a opțiunilor de livrare convenite, în funcție de furnizorii disponibili.",
-      "Un panou de administrare pentru produse, variante și comenzi, în limitele platformei alese.",
-      "Mesaje de confirmare și stări de comandă configurate pentru fluxul agreat.",
-      "Testare a experienței de cumpărare pe telefon și desktop înainte de lansare.",
+      "Categorii și navigație construite după felul în care clienții compară și caută produsele.",
+      "Pagini de produs cu imagini, beneficii, specificații, variante și răspunsuri la întrebările care pot bloca achiziția.",
+      "Coș și checkout simplificate, cu costuri și pași vizibili înainte de confirmarea comenzii.",
+      "Configurarea metodelor de plată și livrare agreate, în funcție de eligibilitatea și accesul furnizorilor.",
+      "Panou de administrare pentru catalog, stocuri și comenzi, în limitele platformei alese.",
+      "Emailuri sau notificări de comandă și stări configurate pentru fluxul stabilit.",
+      "Conectarea instrumentelor externe incluse în ofertă, dacă API-urile și planurile lor permit integrarea.",
+      "Testarea unei comenzi cap-coadă pe telefon și desktop, cu verificarea punctelor de abandon evidente.",
     ],
     process: [
       {
-        title: "Înțelegem catalogul",
+        title: "Cartografiem vânzarea",
         detail:
-          "Clarificăm gama de produse, variantele, stocurile, livrarea și modul în care preiei comenzile acum.",
+          "Inventariem produsele, variantele, stocurile și felul în care o comandă ajunge astăzi de la client la echipa ta.",
       },
       {
-        title: "Proiectăm cumpărarea",
+        title: "Proiectăm experiența",
         detail:
-          "Organizăm categoriile și stabilim ce trebuie să afle un client înainte să adauge un produs în coș.",
+          "Stabilim ce informații ajută clientul să aleagă și eliminăm ambiguitățile din coș și checkout.",
       },
       {
-        title: "Configurăm magazinul",
+        title: "Construim și conectăm",
         detail:
-          "Construim catalogul și conectăm plățile, livrarea și notificările incluse în oferta acceptată.",
+          "Configurăm catalogul, plățile, livrarea și notificările agreate, cu atenție la limitele furnizorilor.",
       },
       {
-        title: "Testăm și predăm",
+        title: "Testăm și predăm controlul",
         detail:
-          "Verificăm o comandă cap-coadă, corectăm blocajele și îți prezentăm administrarea produselor și comenzilor.",
+          "Simulăm cumpărarea, corectăm problemele găsite și îți arătăm cum gestionezi produse și comenzi.",
       },
     ],
     benefits: [
-      "Produsele pot fi găsite după categorii și informații relevante, nu doar derulate într-o listă lungă.",
-      "Prețurile, variantele și costurile de livrare sunt mai clare înainte de checkout.",
-      "Comenzile ajung într-un loc organizat și sunt mai ușor de urmărit decât în mesaje disparate.",
-      "Poți actualiza catalogul fără să reconstruiești paginile de fiecare dată.",
-      "Clientul primește confirmare și știe ce se întâmplă după ce plasează comanda.",
-      "Structura este pregătită să crească odată cu gama și operațiunile tale.",
+      "Clienții pot compara produsele după categorii și detalii relevante, nu printr-un șir nesfârșit de mesaje.",
+      "Prețul, opțiunile și costul livrării sunt prezentate înainte de ultimul pas, reducând surprizele la checkout.",
+      "Comenzile și datele clientului ajung într-un flux organizat, în loc să rămână împrăștiate în conversații.",
+      "Actualizezi produse și variante din panoul magazinului, fără să refaci manual fiecare pagină.",
+      "Confirmările clarifică faptul că o comandă a fost înregistrată și ce urmează după cumpărare.",
+      "Poți extinde catalogul și integrările pe măsură ce cresc gama și operațiunile, în limitele platformei.",
     ],
     pricingIntro:
       "Investiția este determinată de cât de complex este catalogul și de ce trebuie să se întâmple după ce clientul apasă „Comandă”. Un magazin cu produse simple și livrare standard are un flux diferit de unul cu multe variante, importuri de stoc sau reguli speciale. Oferta separă costul construirii de abonamentele și comisioanele furnizorilor terți, ca să știi ce plătești o singură dată și ce poate deveni recurent.",
@@ -149,71 +149,72 @@ export const serviceModels = [
   {
     slug: "implementare-ai",
     name: "Implementare AI",
-    type: "AUTOMATIZARE",
+    
     category: "FLUXURI DE LUCRU",
     image: automationImage,
     imageAlt: "Echipă care analizează împreună un proces de lucru",
     detailImage: automationDetailImage,
     detailImageAlt: "Echipă care planifică și îmbunătățește un proces digital",
     summary:
-      "Automatizăm sarcini repetitive și conectăm instrumentele echipei, cu verificări și predare către o persoană când situația o cere.",
+      "Transformăm pașii repetitivi într-un flux automatizat, cu instrumentele potrivite și control uman acolo unde decizia contează.",
     description:
-      "Nu începem cu un chatbot doar pentru că este la modă. Începem cu procesul care consumă timp: solicitări care trebuie clasificate, informații mutate între aplicații sau întrebări repetitive. Apoi alegem împreună dacă se potrivește o automatizare clasică, un asistent AI sau o combinație. Primești o soluție configurată pentru datele și regulile afacerii, cu limitele explicate și un mod clar de intervenție umană.",
+      "Ai cereri care trebuie triere, date copiate între aplicații sau întrebări la care echipa răspunde zilnic? Proiectăm o automatizare în jurul unui proces real, nu adăugăm AI de dragul etichetei. Alegem între automatizare clasică, asistent AI sau o combinație, apoi conectăm sursele și instrumentele agreate. Știi ce poate face sistemul, ce nu poate face și când pasează cazul unei persoane.",
     audience:
-      "Pentru echipe care pierd timp cu aceiași pași administrativi, răspund la multe solicitări similare sau copiază informații între instrumente. Este util când există un proces repetabil, reguli care pot fi explicate și un responsabil care poate verifica rezultatele.",
+      "Pentru echipe care au procese recurente, reguli suficient de clare și volum care justifică reducerea pașilor manuali. Potrivit dacă solicitările se pierd între canale, informațiile sunt recopiate sau timpul specialiștilor este consumat de sarcini care pot fi pregătite automat.",
     promise:
-      "Scopul este să recuperezi timp dintr-un flux precis și să reduci munca manuală, fără să lași deciziile sensibile sau excepțiile în seama unui sistem automatizat.",
+      "Un flux concret, documentat și testat înainte să intre în lucru, cu permisiuni limitate, rezultate verificabile și o cale simplă de intervenție sau oprire.",
     cardFeatures: [
-      "Analiză de proces înainte de integrare",
-      "Asistenți și automatizări configurate",
-      "Testare și limite documentate",
+      "Proces mapat înainte de alegerea tehnologiei",
+      "Conectări și automatizări potrivite fluxului",
+      "Teste, limite și predare către echipă",
     ],
     deliverables: [
-      "O hartă a procesului ales, cu pașii, excepțiile și punctele în care trebuie să intervină o persoană.",
-      "Recomandarea unei soluții potrivite: automatizare clasică, asistent AI sau o combinație justificată de proces.",
-      "Configurarea fluxului și a instrumentelor incluse în oferta acceptată, în limita API-urilor și acceselor disponibile.",
-      "Instrucțiuni și surse de informație delimitate pentru asistent, dacă proiectul folosește AI.",
-      "Teste cu exemple normale și cazuri-limită, împreună cu verificarea răspunsurilor și a erorilor.",
-      "Reguli de escaladare către o persoană și documentarea situațiilor în care soluția nu trebuie să răspundă singură.",
-      "Predare cu explicații despre acces, utilizare, costuri recurente și pașii de mentenanță conveniți.",
+      "O analiză a procesului actual, a volumului, a blocajelor și a rezultatului pe care vrei să-l obții.",
+      "O hartă a fluxului propus, cu intrări, pași, excepții, responsabilități și puncte de control.",
+      "Recomandarea motivată între reguli automate, AI sau combinația minimă care rezolvă problema.",
+      "Configurarea conectărilor și a permisiunilor necesare, în limita API-urilor și acceselor furnizorilor.",
+      "Pentru funcțiile AI: surse delimitate, instrucțiuni, tipuri de răspuns și cazuri în care sistemul refuză să improvizeze.",
+      "Teste cu exemple reale anonimizate, cazuri-limită și verificarea traseului de eroare.",
+      "Escaladare către o persoană, jurnalizare sau aprobare manuală acolo unde procesul o cere.",
+      "Documentație de utilizare și predare privind accesul, monitorizarea, costurile recurente și oprirea fluxului.",
     ],
     process: [
       {
-        title: "Alegem procesul",
+        title: "Măsurăm munca repetitivă",
         detail:
-          "Identificăm o sarcină concretă, volumul ei și ce înseamnă o eroare acceptabilă sau inacceptabilă.",
+          "Selectăm un singur flux, estimăm frecvența și clarificăm ce rezultat ar face automatizarea utilă.",
       },
       {
-        title: "Proiectăm limitele",
+        title: "Proiectăm controlul",
         detail:
-          "Stabilim ce poate face automatizarea, ce informații folosește și când transferă cazul către echipă.",
+          "Definim datele accesibile, regulile, excepțiile și momentele când o persoană aprobă sau preia cazul.",
       },
       {
-        title: "Integrăm și testăm",
+        title: "Integrăm și validăm",
         detail:
-          "Configurăm conexiunile permise și testăm exemple reprezentative înainte de folosirea în lucru.",
+          "Conectăm instrumentele incluse și testăm scenarii normale și de eroare înainte de utilizarea operațională.",
       },
       {
-        title: "Predăm controlul",
+        title: "Lansăm cu echipa ta",
         detail:
-          "Primești instrucțiuni, costuri estimate ale furnizorilor și o cale de oprire sau ajustare a fluxului.",
+          "Primești instruire, costurile furnizorilor la vedere și pașii pentru verificare, oprire sau ajustare.",
       },
     ],
     benefits: [
-      "Timpul echipei se întoarce către sarcini care cer judecată, nu copiere și triere repetitivă.",
-      "Solicitările pot fi clasificate și pregătite înainte să ajungă la persoana potrivită.",
-      "Conversațiile neclare sau sensibile pot fi trimise către un coleg, nu improvizate de automatizare.",
-      "Instrumentele pot schimba date prin integrări documentate, dacă furnizorii oferă accesul necesar.",
-      "Testezi comportamentul înainte de lansare și cunoști cazurile în care fluxul nu trebuie folosit.",
-      "Echipa primește instrucțiuni despre verificare, costuri și controlul soluției după predare.",
+      "Reduci pașii de copiere, căutare și triere care întrerup munca echipei în fiecare zi.",
+      "Solicitările ajung deja clasificate sau completate la colegul care le poate rezolva.",
+      "Cazurile neclare, sensibile sau în afara regulilor sunt trimise unei persoane, nu tratate automat.",
+      "Datele circulă între instrumentele agreate fără introducere repetată, dacă integrarea este disponibilă.",
+      "Înainte de lansare vezi cum se comportă fluxul pe exemple normale, excepții și erori.",
+      "Echipa știe ce verifică, cine răspunde de sistem și cum îl poate opri sau modifica.",
     ],
     pricingIntro:
-      "Un proiect de automatizare se estimează după proces și riscuri, nu după eticheta „AI”. Contează câte sisteme trebuie conectate, ce date pot fi folosite, cât de multe excepții există și ce nivel de verificare este necesar înainte ca un rezultat să ajungă la client. Abonamentele, creditele AI și alte costuri ale platformelor terțe se explică separat și nu se activează fără acordul tău.",
+      "Investiția depinde de ce vrei să elimini din munca manuală și de cât de sigur trebuie să funcționeze fluxul. Estimăm separat analiza, integrarea, testele și predarea, iar abonamentele, creditele AI și costurile furnizorilor rămân vizibile înainte de acord. Începem cu o automatizare restrânsă și verificabilă; extinderea are sens numai după ce soluția se potrivește procesului real.",
     pricingFactors: [
-      "Numărul și complexitatea fluxurilor",
-      "Instrumentele, API-urile și permisiunile disponibile",
-      "Volumul de date și cerințele de securitate",
-      "Testare, monitorizare și mentenanță ulterioară",
+      "Numărul pașilor, ramificațiilor și excepțiilor din proces",
+      "Aplicațiile conectate, API-urile și nivelul de acces disponibil",
+      "Sensibilitatea datelor și verificările sau aprobările necesare",
+      "Testare, documentare, monitorizare și suport după lansare",
     ],
   },
 ] as const;
